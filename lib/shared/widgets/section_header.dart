@@ -6,6 +6,8 @@ class SectionHeader extends StatelessWidget {
   final String? subtitle;
   final String? actionText;
   final VoidCallback? onActionTap;
+  /// When true, renders a larger editorial display-weight title.
+  final bool isLarge;
 
   const SectionHeader({
     super.key,
@@ -13,6 +15,7 @@ class SectionHeader extends StatelessWidget {
     this.subtitle,
     this.actionText,
     this.onActionTap,
+    this.isLarge = false,
   });
 
   @override
@@ -21,7 +24,10 @@ class SectionHeader extends StatelessWidget {
     final colors = context.appColors;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: 20.0,
+        vertical: isLarge ? 10.0 : 8.0,
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -31,13 +37,19 @@ class SectionHeader extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: colors.charcoal,
-                  ),
+                  style: isLarge
+                      ? theme.textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: colors.charcoal,
+                          height: 1.1,
+                        )
+                      : theme.textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: colors.charcoal,
+                        ),
                 ),
                 if (subtitle != null) ...[
-                  const SizedBox(height: 2),
+                  SizedBox(height: isLarge ? 4 : 2),
                   Text(
                     subtitle!,
                     style: theme.textTheme.bodySmall?.copyWith(

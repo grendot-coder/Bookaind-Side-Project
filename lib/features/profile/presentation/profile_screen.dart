@@ -146,8 +146,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 4),
                       Text(
                         isSignedIn
-                            ? (user?.email ??
-                                  'Cultural Enthusiast • Java Explorer')
+                            ? (user.email ??
+                                  'Cultural Enthusiast • Nusantara  Explorer')
                             : 'Browsing public cultural heritage',
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: colors.mutedBrown,

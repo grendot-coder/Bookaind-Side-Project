@@ -10,6 +10,8 @@ abstract class CulturalRepository {
   Future<List<Destination>> getFeaturedDestinations();
   Future<List<CulturalEntry>> getCulturalEntries({String? categoryId});
   Future<List<CulturalEntry>> getCulinaryEntries();
+  Future<CulturalEntry?> getCulturalEntryById(String id);
+  Future<Destination?> getDestinationById(String id);
 }
 
 /// Mock implementation for the foundation phase
@@ -45,6 +47,30 @@ class MockCulturalRepository implements CulturalRepository {
         .where((entry) => entry.categoryId == 'food')
         .toList();
   }
+
+  @override
+  Future<CulturalEntry?> getCulturalEntryById(String id) async {
+    final cleanId = id.trim().toLowerCase();
+    try {
+      return MockCulturalData.culturalEntries.firstWhere(
+        (entry) => entry.id.trim().toLowerCase() == cleanId,
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  Future<Destination?> getDestinationById(String id) async {
+    final cleanId = id.trim().toLowerCase();
+    try {
+      return MockCulturalData.featuredDestinations.firstWhere(
+        (dest) => dest.id.trim().toLowerCase() == cleanId,
+      );
+    } catch (_) {
+      return null;
+    }
+  }
 }
 
 // -------------------------------------------------------------
@@ -78,6 +104,14 @@ final culinaryEntriesProvider = FutureProvider<List<CulturalEntry>>((
   return repository.getCulinaryEntries();
 });
 
+/// FutureProvider for all cultural entries
+final culturalEntriesProvider = FutureProvider<List<CulturalEntry>>((
+  ref,
+) async {
+  final repository = ref.watch(culturalRepositoryProvider);
+  return repository.getCulturalEntries();
+});
+
 /// FutureProvider for categories
 final categoriesProvider = FutureProvider<List<CulturalCategory>>((ref) async {
   final repository = ref.watch(culturalRepositoryProvider);
@@ -94,4 +128,18 @@ final filteredCulturalEntriesProvider = FutureProvider<List<CulturalEntry>>((
   final repository = ref.watch(culturalRepositoryProvider);
   final activeCategory = ref.watch(selectedCategoryFilterProvider);
   return repository.getCulturalEntries(categoryId: activeCategory);
+});
+
+/// FutureProvider for a specific cultural entry by ID
+final culturalEntryByIdProvider =
+    FutureProvider.family<CulturalEntry?, String>((ref, id) async {
+  final repository = ref.watch(culturalRepositoryProvider);
+  return repository.getCulturalEntryById(id);
+});
+
+/// FutureProvider for a specific destination by ID
+final destinationByIdProvider =
+    FutureProvider.family<Destination?, String>((ref, id) async {
+  final repository = ref.watch(culturalRepositoryProvider);
+  return repository.getDestinationById(id);
 });

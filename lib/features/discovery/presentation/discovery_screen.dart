@@ -13,75 +13,68 @@ class DiscoveryScreen extends ConsumerWidget {
     final colors = context.appColors;
     final theme = Theme.of(context);
 
-    // Watch filtered entries and categories
     final categoriesAsync = ref.watch(categoriesProvider);
     final entriesAsync = ref.watch(filteredCulturalEntriesProvider);
     final selectedCategory = ref.watch(selectedCategoryFilterProvider);
 
     return Scaffold(
       backgroundColor: colors.cream,
-      appBar: AppBar(
-        title: Text(
-          'Cultural Heritage',
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // 1. CATEGORY FILTER PILLS
-          SizedBox(
-            height: 48,
-            child: categoriesAsync.when(
-              data: (categories) {
-                return ListView(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  children: [
-                    // "All" filter chip
-                    Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: FilterChip(
-                        selected: selectedCategory == null,
-                        label: const Text('All Traditions'),
-                        labelStyle: TextStyle(
-                          color: selectedCategory == null
-                              ? Colors.white
-                              : colors.charcoal,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 13,
-                        ),
-                        backgroundColor: colors.warmWhite,
-                        selectedColor: colors.coral,
-                        showCheckmark: false,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: BorderSide(
-                            color: selectedCategory == null
-                                ? colors.coral
-                                : colors.mutedBrown.withValues(alpha: 0.2),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 1. EDITORIAL HEADER — large display title
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'BOOKAIND',
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: colors.coral,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.8,
                           ),
                         ),
-                        onSelected: (_) {
-                          ref
-                                  .read(selectedCategoryFilterProvider.notifier)
-                                  .state =
-                              null;
-                        },
-                      ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Discover',
+                          style: theme.textTheme.displaySmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            height: 1.0,
+                          ),
+                        ),
+                      ],
                     ),
-                    // Dynamic categories (Food, Textile, Dance, Architecture)
-                    ...categories.map((cat) {
-                      final isSelected = selectedCategory == cat.id;
-                      return Padding(
+                  ),
+                ],
+              ),
+            ),
+
+            // 2. CATEGORY FILTER PILLS
+            SizedBox(
+              height: 48,
+              child: categoriesAsync.when(
+                data: (categories) {
+                  return ListView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    children: [
+                      // "All" filter chip
+                      Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: FilterChip(
-                          selected: isSelected,
-                          label: Text(cat.name),
+                          selected: selectedCategory == null,
+                          label: const Text('All Traditions'),
                           labelStyle: TextStyle(
-                            color: isSelected ? Colors.white : colors.charcoal,
+                            color: selectedCategory == null
+                                ? Colors.white
+                                : colors.charcoal,
                             fontWeight: FontWeight.w600,
                             fontSize: 13,
                           ),
@@ -91,7 +84,7 @@ class DiscoveryScreen extends ConsumerWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                             side: BorderSide(
-                              color: isSelected
+                              color: selectedCategory == null
                                   ? colors.coral
                                   : colors.mutedBrown.withValues(alpha: 0.2),
                             ),
@@ -99,20 +92,50 @@ class DiscoveryScreen extends ConsumerWidget {
                           onSelected: (_) {
                             ref
                                 .read(selectedCategoryFilterProvider.notifier)
-                                .state = isSelected
-                                ? null
-                                : cat.id;
+                                .state = null;
                           },
                         ),
-                      );
-                    }),
-                  ],
-                );
-              },
-              loading: () => const SizedBox(),
-              error: (_, __) => const SizedBox(),
+                      ),
+                      // Dynamic categories (Food, Textile, Dance, Architecture)
+                      ...categories.map((cat) {
+                        final isSelected = selectedCategory == cat.id;
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: FilterChip(
+                            selected: isSelected,
+                            label: Text(cat.name),
+                            labelStyle: TextStyle(
+                              color:
+                                  isSelected ? Colors.white : colors.charcoal,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13,
+                            ),
+                            backgroundColor: colors.warmWhite,
+                            selectedColor: colors.coral,
+                            showCheckmark: false,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              side: BorderSide(
+                                color: isSelected
+                                    ? colors.coral
+                                    : colors.mutedBrown.withValues(alpha: 0.2),
+                              ),
+                            ),
+                            onSelected: (_) {
+                              ref
+                                  .read(selectedCategoryFilterProvider.notifier)
+                                  .state = isSelected ? null : cat.id;
+                            },
+                          ),
+                        );
+                      }),
+                    ],
+                  );
+                },
+                loading: () => const SizedBox(),
+                error: (_, _) => const SizedBox(),
+              ),
             ),
-          ),
 
           const SizedBox(height: 12),
 
@@ -132,10 +155,7 @@ class DiscoveryScreen extends ConsumerWidget {
                 }
 
                 return ListView.builder(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 8,
-                  ),
+                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 100),
                   itemCount: entries.length,
                   itemBuilder: (context, index) {
                     final entry = entries[index];
@@ -156,8 +176,9 @@ class DiscoveryScreen extends ConsumerWidget {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 /// Editorial card for cultural catalog

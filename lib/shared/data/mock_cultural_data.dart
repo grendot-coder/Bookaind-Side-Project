@@ -133,6 +133,7 @@ class MockCulturalData {
       isFeatured: true,
       latitude: -7.942494,
       longitude: 112.953012,
+      category: 'nature',
     ),
     Destination(
       id: 'prambanan',

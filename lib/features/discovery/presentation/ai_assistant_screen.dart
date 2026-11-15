@@ -38,7 +38,7 @@ class _AiAssistantScreenState extends State<AiAssistantScreen> {
   final List<ChatMessage> _messages = [
     const ChatMessage(
       text:
-          'Sugeng Rawuh & Sampurasun! 🙏\n\nI am your Nusantara Cultural Guide. I can help you uncover ancient temple histories, royal culinary traditions, batik philosophies, or plan cultural itineraries across Java.\n\nWhat would you like to explore today?',
+          'Sugeng Rawuh & Sampurasun! 🙏\n\nI am your Nusantara Cultural Guide. I can help you uncover ancient temple histories, royal culinary traditions, batik philosophies, or plan cultural itineraries across Indonesia.\n\nWhat would you like to explore today?',
       isUser: false,
       timestamp: null, // Initial greeting
     ),
@@ -46,10 +46,12 @@ class _AiAssistantScreenState extends State<AiAssistantScreen> {
 
   // Quick prompt suggestions
   final List<String> _suggestions = [
-    'Must-see temples in Yogyakarta & Central Java',
+    'Must-see places in Yogyakarta & Central Java',
     'Tell me about authentic East Java culinary',
+    'The best anti-mainstream destination outside Java and Bali',
+    'How much do i need to save up before visiting indonesia?',
     'What is the philosophy of Batik Tulis?',
-    'Temple etiquette & sarong rules',
+    'Temple etiquette',
   ];
 
   @override
@@ -94,7 +96,6 @@ class _AiAssistantScreenState extends State<AiAssistantScreen> {
         )
         .toList();
 
-    // 🚀 CALL YOUR LIVE GROQ API!
     final aiAnswer = await GroqCulturalService.generateCulturalAnswer(
       userPrompt: userText,
       conversationHistory: history,

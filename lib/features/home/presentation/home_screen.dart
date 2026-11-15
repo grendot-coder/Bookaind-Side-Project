@@ -29,39 +29,82 @@ class HomeScreen extends ConsumerWidget {
             // 1. Editorial Header & Greeting
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Top row: greeting + weather badge
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'NUSANTARA HERITAGE',
-                              style: theme.textTheme.labelSmall?.copyWith(
-                                color: colors.coral,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.2,
+                        // Greeting text
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'BOOKAIND',
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  color: colors.coral,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1.8,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              'Just Move It, Explorer',
-                              style: theme.textTheme.displaySmall?.copyWith(
-                                fontWeight: FontWeight.bold,
+                              const SizedBox(height: 2),
+                              Text(
+                                'Discover Nusantara',
+                                style: theme.textTheme.displaySmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  height: 1.1,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundColor: colors.coralSubtle,
-                          child: Icon(
-                            Icons.notifications_none_rounded,
-                            color: colors.charcoal,
+                        const SizedBox(width: 12),
+                        // Weather cosmetic badge
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            color: colors.warmWhite,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.07),
+                                blurRadius: 8,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text('☀️', style: TextStyle(fontSize: 16)),
+                              const SizedBox(width: 6),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Weather',
+                                    style: theme.textTheme.labelSmall?.copyWith(
+                                      color: colors.mutedBrown,
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                  Text(
+                                    '32° C',
+                                    style: theme.textTheme.labelMedium?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: colors.charcoal,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -69,18 +112,22 @@ class HomeScreen extends ConsumerWidget {
 
                     const SizedBox(height: 18),
 
-                    // Search Bar Mock
+                    // Search Bar — floating pill with shadow
                     Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,
-                        vertical: 12,
+                        vertical: 13,
                       ),
                       decoration: BoxDecoration(
                         color: colors.warmWhite,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: colors.mutedBrown.withValues(alpha: 0.15),
-                        ),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.08),
+                            blurRadius: 12,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
                       ),
                       child: Row(
                         children: [
@@ -95,6 +142,23 @@ class HomeScreen extends ConsumerWidget {
                         ],
                       ),
                     ),
+
+                    const SizedBox(height: 18),
+
+                    // Category filter pills — horizontal scroll
+                    SizedBox(
+                      height: 36,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: _HomeFilterChip.items.map((item) {
+                          return _HomeFilterChip(
+                            item: item,
+                            onTap: () => context.push('/discover'),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
                   ],
                 ),
               ),
@@ -105,13 +169,14 @@ class HomeScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SectionHeader(
-                    title: 'Wonders of Java',
-                    subtitle:
-                        'Iconic heritage destinations to begin your journey',
+                  const SizedBox(height: 10),
+                  SectionHeader(
+                    title: 'Wonders of Nusantara',
+                    subtitle: 'Iconic heritage destinations to begin your journey',
+                    isLarge: true,
                   ),
                   SizedBox(
-                    height: 285,
+                    height: 290,
                     child: destinationsAsync.when(
                       data: (destinations) => ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -135,7 +200,7 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
 
-            // 3. Explore Provinces of Java
+            // 3. Explore Provinces
             SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,10 +208,10 @@ class HomeScreen extends ConsumerWidget {
                   const SizedBox(height: 16),
                   const SectionHeader(
                     title: 'Explore Provinces',
-                    subtitle: 'Six diverse cultural regions across Java',
+                    subtitle: 'More than 30 culturally diversed provinces',
                   ),
                   SizedBox(
-                    height: 130,
+                    height: 150,
                     child: provincesAsync.when(
                       data: (provinces) => ListView.builder(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -155,7 +220,9 @@ class HomeScreen extends ConsumerWidget {
                         itemBuilder: (context, index) {
                           return ProvinceCard(
                             province: provinces[index],
-                            onTap: () {},
+                            onTap: () => context.push(
+                              '/province/${provinces[index].id}',
+                            ),
                           );
                         },
                       ),
@@ -168,91 +235,103 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
 
-            // 4. Traditional Food Previews
+            // 4. Traditional Food — wider horizontal photo cards
             SliverToBoxAdapter(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 16),
                   const SectionHeader(
-                    title: 'Discover Traditional Food',
-                    subtitle:
-                        'Time-honored recipes passed down through generations',
+                    title: 'Traditional Food',
+                    subtitle: 'Time-honored recipes passed down through generations',
                   ),
                   culinaryAsync.when(
-                    data: (entries) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: entries.map((entry) {
-                          return Container(
-                            margin: const EdgeInsets.only(bottom: 12),
-                            decoration: BoxDecoration(
-                              color: colors.warmWhite,
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(
-                                color: colors.mutedBrown.withValues(
-                                  alpha: 0.15,
-                                ),
+                    data: (entries) => SizedBox(
+                      height: 190,
+                      child: ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: entries.length,
+                        itemBuilder: (context, index) {
+                          final entry = entries[index];
+                          return GestureDetector(
+                            onTap: () => context.push('/cultural/${entry.id}'),
+                            child: Container(
+                              width: 150,
+                              margin: const EdgeInsets.only(right: 14),
+                              decoration: BoxDecoration(
+                                color: colors.warmWhite,
+                                borderRadius: BorderRadius.circular(18),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withValues(alpha: 0.08),
+                                    blurRadius: 10,
+                                    offset: const Offset(0, 3),
+                                  ),
+                                ],
                               ),
-                            ),
-                            // clipBehavior keeps the ripple effect inside the rounded corners!
-                            clipBehavior: Clip.antiAlias,
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(16),
-                              // 👉 Tapping now navigates to the Cultural Detail page!
-                              onTap: () =>
-                                  context.push('/cultural/${entry.id}'),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12),
-                                child: Row(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: Image.network(
-                                        entry.imageUrl,
-                                        width: 70,
-                                        height: 70,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (ctx, _, _) => Container(
-                                          width: 70,
-                                          height: 70,
-                                          color: colors.saffronSubtle,
-                                          child: Icon(
-                                            Icons.restaurant,
-                                            color: colors.saffron,
-                                          ),
+                              clipBehavior: Clip.antiAlias,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Food image — wider, magazine-style
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(18),
+                                    ),
+                                    child: Image.network(
+                                      entry.imageUrl,
+                                      width: 150,
+                                      height: 110,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (ctx, _, _) => Container(
+                                        width: 150,
+                                        height: 110,
+                                        color: colors.saffronSubtle,
+                                        child: Icon(
+                                          Icons.restaurant,
+                                          color: colors.saffron,
+                                          size: 32,
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(width: 14),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            entry.title,
-                                            style: theme.textTheme.titleSmall
-                                                ?.copyWith(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                          const SizedBox(height: 2),
-                                          Text(
-                                            entry.summary,
-                                            style: theme.textTheme.bodySmall,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ],
-                                      ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                      10, 8, 10, 8,
                                     ),
-                                  ],
-                                ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          entry.title,
+                                          style: theme.textTheme.labelLarge
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const SizedBox(height: 2),
+                                        Text(
+                                          entry.summary,
+                                          style: theme.textTheme.bodySmall
+                                              ?.copyWith(
+                                                color: colors.mutedBrown,
+                                                fontSize: 11,
+                                              ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           );
-                        }).toList(),
+                        },
                       ),
                     ),
                     loading: () =>
@@ -267,12 +346,81 @@ class HomeScreen extends ConsumerWidget {
             SliverToBoxAdapter(
               child: Column(
                 children: [
+                  const SizedBox(height: 8),
                   MapTeaserCard(onTap: () => context.push('/map')),
                   AiAssistantTeaserCard(
                     onTap: () => context.push('/ai-assistant'),
                   ),
-                  const SizedBox(height: 32),
+                  // Extra bottom padding for the floating nav bar
+                  const SizedBox(height: 100),
                 ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Home category filter chip
+// ---------------------------------------------------------------------------
+
+class _HomeFilterItem {
+  final IconData icon;
+  final String label;
+  const _HomeFilterItem({required this.icon, required this.label});
+}
+
+class _HomeFilterChip extends StatelessWidget {
+  final _HomeFilterItem item;
+  final VoidCallback onTap;
+
+  const _HomeFilterChip({required this.item, required this.onTap});
+
+  static const items = [
+    _HomeFilterItem(icon: Icons.temple_buddhist_rounded, label: 'Heritage'),
+    _HomeFilterItem(icon: Icons.forest_rounded, label: 'Nature'),
+    _HomeFilterItem(icon: Icons.waves_rounded, label: 'Marine'),
+    _HomeFilterItem(icon: Icons.restaurant_rounded, label: 'Food'),
+    _HomeFilterItem(icon: Icons.palette_rounded, label: 'Arts'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = context.appColors;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(right: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+        decoration: BoxDecoration(
+          color: colors.warmWhite,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: colors.mutedBrown.withValues(alpha: 0.2),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 6,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(item.icon, size: 15, color: colors.coral),
+            const SizedBox(width: 6),
+            Text(
+              item.label,
+              style: theme.textTheme.labelMedium?.copyWith(
+                color: colors.charcoal,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],

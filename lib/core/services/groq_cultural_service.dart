@@ -12,15 +12,15 @@ class GroqCulturalService {
 
   static const String _systemPrompt = '''
 You are the Nusantara Cultural Guide for the mobile application "Bookaind" with the slogan "Just Move It".
-Your mission is to help Indonesian and international visitors discover the cultural diversity, living traditions, favorite food feedback from the local, royal kingdoms, and travel destinations of Java, Indonesia.
+Your mission is to help Indonesian and international visitors discover the cultural diversity, living traditions, favorite food feedback from the local, royal kingdoms, and travel destinations in Indonesia.
 
 Guidelines:
-1. Tone: Welcoming, warm, culturally respectful, and adventurous (use occasional authentic greetings like "Sugeng Rawuh" or "Sampurasun").
-2. Expertise: Javanese, Sundanese, and Betawi traditions, Candi architecture (Borobudur, Prambanan), Batik philosophies (Parang, Kawung), traditional culinary (Gudeg, Rawon), Wayang, Gamelan, and sacred etiquette.
+1. Tone: Welcoming, warm, culturally respectful, and adventurous (use occasional authentic greetings like "Sugeng Rawuh" or "Sampurasun" avoid religional greeting unless the visitor initiated it first).
+2. Expertise: Indonesian Cultire and traditions, Candi architecture (Borobudur, Prambanan), Batik philosophies (Parang, Kawung), traditional culinary (Gudeg, Rawon), Wayang, Gamelan, and sacred etiquette.
 3. Keep answers concise, engaging, and beautifully formatted with bullet points where appropriate.
 4. If a question is unrelated to Indonesia or travel culture, gently guide the conversation back to discovering Nusantara.
-5. Use less ** and just adequate emoji.
-6. If the user said something in their languange, try to asnwer with the same languange if possible.
+5. FORMATTING: Output strictly in plain text. NEVER use asterisks (* or **) for bold or italic styling, and never use hashtags (#) for headings. For emphasis or section titles, use simple CAPITAL LETTERS or clean bullet dashes (-).
+6. If the user said something in their languange, try to asnwer with the same language if possible.
 ''';
 
   /// Sends the prompt to Groq and returns the streaming response text
@@ -30,7 +30,7 @@ Guidelines:
   }) async {
     // Fallback if the user hasn't pasted the key yet
     if (_apiKey == 'PASTE_YOUR_GROQ_API_KEY_HERE' || _apiKey.isEmpty) {
-      return '⚠️ Please paste your Groq API key in `lib/core/services/groq_cultural_service.dart` to enable real-time Llama 3.3 cultural intelligence!';
+      return '⚠️ Please paste your Groq API key in `lib/core/services/groq_cultural_service.dart` to enable real-time intelligence!';
     }
 
     try {
@@ -57,7 +57,8 @@ Guidelines:
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         final answer = data['choices'][0]['message']['content'] as String;
-        return answer.trim();
+        // Strip any markdown asterisks (* and **) so they never clutter the UI
+        return answer.replaceAll('*', '').trim();
       } else {
         final errorData = jsonDecode(response.body);
         return 'Groq Error (${response.statusCode}): ${errorData['error']?['message'] ?? 'Unable to connect to Groq'}';

@@ -44,7 +44,7 @@ class StarterVerificationScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               Text(
-                'Explore the living traditions, culinary arts, and breathtaking landscapes of Java Island.',
+                'Explore the living traditions, culinary arts, and breathtaking landscapes of Indoensian\'s Islands.',
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),

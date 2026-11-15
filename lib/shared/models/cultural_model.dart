@@ -1,4 +1,5 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import '../../app/theme/app_colors.dart';
 
 /// Province cultural profile
 @immutable
@@ -25,14 +26,14 @@ class Province {
 
   factory Province.fromMap(Map<String, dynamic> map) {
     return Province(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      localName: map['local_name'] as String,
-      capital: map['capital'] as String,
-      tagline: map['tagline'] as String,
-      heroImageUrl: map['hero_image_url'] as String,
-      latitude: (map['latitude'] as num).toDouble(),
-      longitude: (map['longitude'] as num).toDouble(),
+      id: (map['id'] ?? '').toString().trim(),
+      name: (map['name'] ?? '').toString(),
+      localName: (map['local_name'] ?? '').toString(),
+      capital: (map['capital'] ?? '').toString(),
+      tagline: (map['tagline'] ?? '').toString(),
+      heroImageUrl: (map['hero_image_url'] ?? '').toString(),
+      latitude: (map['latitude'] as num?)?.toDouble() ?? 0.0,
+      longitude: (map['longitude'] as num?)?.toDouble() ?? 0.0,
     );
   }
 }
@@ -56,11 +57,11 @@ class CulturalCategory {
 
   factory CulturalCategory.fromMap(Map<String, dynamic> map) {
     return CulturalCategory(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      slug: map['slug'] as String,
-      iconName: map['icon_name'] as String,
-      accentColorKey: map['accent_color_key'] as String,
+      id: (map['id'] ?? '').toString().trim(),
+      name: (map['name'] ?? '').toString(),
+      slug: (map['slug'] ?? '').toString(),
+      iconName: (map['icon_name'] ?? 'category').toString(),
+      accentColorKey: (map['accent_color_key'] ?? 'coral').toString(),
     );
   }
 }
@@ -92,18 +93,17 @@ class CulturalEntry {
 
   factory CulturalEntry.fromMap(Map<String, dynamic> map) {
     return CulturalEntry(
-      id: map['id'] as String,
-      categoryId: map['category_id'] as String,
-      title: map['title'] as String,
-      localName: map['local_name'] as String,
-      summary: map['summary'] as String,
-      description: map['description'] as String,
-      provinceIds:
-          (map['province_ids'] as List<dynamic>?)
-              ?.map((e) => e.toString())
+      id: (map['id'] ?? '').toString().trim(),
+      categoryId: (map['category_id'] ?? '').toString().trim(),
+      title: (map['title'] ?? '').toString(),
+      localName: (map['local_name'] ?? '').toString(),
+      summary: (map['summary'] ?? '').toString(),
+      description: (map['description'] ?? '').toString(),
+      provinceIds: (map['province_ids'] as List<dynamic>?)
+              ?.map((e) => e.toString().trim())
               .toList() ??
           [],
-      imageUrl: map['image_url'] as String,
+      imageUrl: (map['image_url'] ?? '').toString(),
       isUnescoRecognized: map['is_unesco_recognized'] as bool? ?? false,
     );
   }
@@ -124,6 +124,7 @@ class Destination {
   final bool isFeatured;
   final double latitude;
   final double longitude;
+  final String category; // 'structure', 'nature', 'marine', 'village'
 
   const Destination({
     required this.id,
@@ -138,22 +139,127 @@ class Destination {
     this.isFeatured = false,
     required this.latitude,
     required this.longitude,
+    this.category = 'structure',
   });
 
   factory Destination.fromMap(Map<String, dynamic> map) {
+    final id = (map['id'] ?? '').toString().trim();
+    // Check both 'type' and 'category' columns from Supabase, handling whitespace/newlines
+    final rawCategory = (map['type'] ?? map['category'] ?? map['destination_type'])
+        ?.toString()
+        .trim()
+        .toLowerCase();
+
+    // Smart fallback if neither type nor category is set in Supabase
+    final String category;
+    if (rawCategory != null && rawCategory.isNotEmpty) {
+      if (rawCategory.contains('nature') ||
+          rawCategory.contains('alam') ||
+          rawCategory.contains('park') ||
+          rawCategory.contains('hutan')) {
+        category = 'nature';
+      } else if (rawCategory.contains('marine') ||
+          rawCategory.contains('bahari') ||
+          rawCategory.contains('laut') ||
+          rawCategory.contains('pantai') ||
+          rawCategory.contains('coastal')) {
+        category = 'marine';
+      } else if (rawCategory.contains('village') ||
+          rawCategory.contains('desa') ||
+          rawCategory.contains('kampung')) {
+        category = 'village';
+      } else if (rawCategory.contains('structure') ||
+          rawCategory.contains('heritage') ||
+          rawCategory.contains('candi') ||
+          rawCategory.contains('bangunan')) {
+        category = 'structure';
+      } else {
+        category = rawCategory;
+      }
+    } else if (['bromo', 'dieng', 'ujungkulon', 'baluran'].contains(id)) {
+      category = 'nature';
+    } else if (['bunaken', 'bawean', 'siau'].contains(id)) {
+      category = 'marine';
+    } else if (['waerebo'].contains(id)) {
+      category = 'village';
+    } else {
+      category = 'structure';
+    }
+
     return Destination(
-      id: map['id'] as String,
-      title: map['title'] as String,
-      provinceId: map['province_id'] as String,
-      cityOrRegency: map['city_or_regency'] as String,
-      tagline: map['tagline'] as String,
-      description: map['description'] as String,
-      imageUrl: map['image_url'] as String,
+      id: id,
+      title: (map['title'] ?? '').toString(),
+      provinceId: (map['province_id'] ?? 'other').toString().trim(),
+      cityOrRegency: (map['city_or_regency'] ?? '').toString(),
+      tagline: (map['tagline'] ?? '').toString(),
+      description: (map['description'] ?? '').toString(),
+      imageUrl: (map['image_url'] ?? '').toString(),
       rating: (map['rating'] as num?)?.toDouble() ?? 4.5,
-      entryFeeRange: map['entry_fee_range'] as String,
+      entryFeeRange: (map['entry_fee_range'] ?? 'Free').toString(),
       isFeatured: map['is_featured'] as bool? ?? false,
-      latitude: (map['latitude'] as num).toDouble(),
-      longitude: (map['longitude'] as num).toDouble(),
+      latitude: (map['latitude'] as num?)?.toDouble() ?? 0.0,
+      longitude: (map['longitude'] as num?)?.toDouble() ?? 0.0,
+      category: category,
     );
+  }
+
+  /// Readable taxonomy label
+  String get categoryLabel {
+    switch (category.toLowerCase()) {
+      case 'nature':
+        return 'Nature & Park';
+      case 'marine':
+        return 'Coastal & Marine';
+      case 'village':
+        return 'Traditional Village';
+      case 'structure':
+      default:
+        return 'Cultural Heritage';
+    }
+  }
+
+  /// Category icon for map and badges
+  IconData get categoryIcon {
+    switch (category.toLowerCase()) {
+      case 'nature':
+        return Icons.landscape_rounded;
+      case 'marine':
+        return Icons.waves_rounded;
+      case 'village':
+        return Icons.holiday_village_rounded;
+      case 'structure':
+      default:
+        return Icons.account_balance_rounded;
+    }
+  }
+
+  /// Primary marker color aligned with Nusantara palette
+  Color markerColor(AppColorsExtension colors) {
+    switch (category.toLowerCase()) {
+      case 'nature':
+        return colors.teal;
+      case 'marine':
+        return colors.blue;
+      case 'village':
+        return colors.saffron;
+      case 'structure':
+      default:
+        return colors.coral;
+    }
+  }
+
+  /// Subtle background color for chips and cards
+  Color markerSubtleColor(AppColorsExtension colors) {
+    switch (category.toLowerCase()) {
+      case 'nature':
+        return colors.tealSubtle;
+      case 'marine':
+        return colors.blueSubtle;
+      case 'village':
+        return colors.saffronSubtle;
+      case 'structure':
+      default:
+        return colors.coralSubtle;
+    }
   }
 }

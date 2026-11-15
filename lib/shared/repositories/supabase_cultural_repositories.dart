@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../data/mock_cultural_data.dart';
 import '../models/cultural_model.dart';
@@ -40,7 +41,8 @@ class SupabaseCulturalRepository implements CulturalRepository {
           .select()
           .eq('is_featured', true);
       return (response as List).map((row) => Destination.fromMap(row)).toList();
-    } catch (_) {
+    } catch (e) {
+      debugPrint('⚠️ Supabase getFeaturedDestinations error: $e');
       return MockCulturalData.featuredDestinations;
     }
   }
@@ -55,7 +57,8 @@ class SupabaseCulturalRepository implements CulturalRepository {
       return (response as List)
           .map((row) => CulturalEntry.fromMap(row))
           .toList();
-    } catch (_) {
+    } catch (e) {
+      debugPrint('⚠️ Supabase getCulturalEntries error: $e');
       if (categoryId == null) return MockCulturalData.culturalEntries;
       return MockCulturalData.culturalEntries
           .where((e) => e.categoryId == categoryId)
@@ -73,10 +76,65 @@ class SupabaseCulturalRepository implements CulturalRepository {
       return (response as List)
           .map((row) => CulturalEntry.fromMap(row))
           .toList();
-    } catch (_) {
+    } catch (e) {
+      debugPrint('⚠️ Supabase getCulinaryEntries error: $e');
       return MockCulturalData.culturalEntries
           .where((e) => e.categoryId == 'food')
           .toList();
+    }
+  }
+
+  @override
+  Future<CulturalEntry?> getCulturalEntryById(String id) async {
+    final cleanId = id.trim().toLowerCase();
+    try {
+      final response = await _client
+          .from('cultural_entries')
+          .select()
+          .ilike('id', cleanId)
+          .maybeSingle();
+
+      if (response != null) {
+        return CulturalEntry.fromMap(response);
+      }
+    } catch (e) {
+      debugPrint('⚠️ Supabase getCulturalEntryById error: $e');
+    }
+
+    // Fallback to mock data if offline or not found
+    try {
+      return MockCulturalData.culturalEntries.firstWhere(
+        (entry) => entry.id.trim().toLowerCase() == cleanId,
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
+  @override
+  Future<Destination?> getDestinationById(String id) async {
+    final cleanId = id.trim().toLowerCase();
+    try {
+      final response = await _client
+          .from('destinations')
+          .select()
+          .ilike('id', cleanId)
+          .maybeSingle();
+
+      if (response != null) {
+        return Destination.fromMap(response);
+      }
+    } catch (e) {
+      debugPrint('⚠️ Supabase getDestinationById error: $e');
+    }
+
+    // Fallback to mock data
+    try {
+      return MockCulturalData.featuredDestinations.firstWhere(
+        (dest) => dest.id.trim().toLowerCase() == cleanId,
+      );
+    } catch (_) {
+      return null;
     }
   }
 }

@@ -12,6 +12,7 @@ import '../features/welcome/presentation/wonderous_intro_screen.dart';
 import '../features/discovery/presentation/destination_detail_screen.dart';
 import '../features/discovery/presentation/interactive_map_screen.dart';
 import '../features/discovery/presentation/ai_assistant_screen.dart';
+import '../features/discovery/presentation/province_detail_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -88,6 +89,14 @@ final appRouter = GoRouter(
       builder: (context, state) {
         final id = state.pathParameters['id'] ?? '';
         return DestinationDetailScreen(destinationId: id);
+      },
+    ),
+
+    GoRoute(
+      path: '/province/:id',
+      builder: (context, state) {
+        final id = state.pathParameters['id'] ?? '';
+        return ProvinceDetailScreen(provinceId: id);
       },
     ),
 
