@@ -112,34 +112,53 @@ class HomeScreen extends ConsumerWidget {
 
                     const SizedBox(height: 18),
 
-                    // Search Bar — floating pill with shadow
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 13,
-                      ),
-                      decoration: BoxDecoration(
-                        color: colors.warmWhite,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.08),
-                            blurRadius: 12,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(Icons.search_rounded, color: colors.mutedBrown),
-                          const SizedBox(width: 12),
-                          Text(
-                            'Search temples, batik, royal cuisines...',
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: colors.mutedBrown,
+                    // Search Bar — interactive floating pill with shadow
+                    GestureDetector(
+                      onTap: () => context.push('/search'),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 13,
+                        ),
+                        decoration: BoxDecoration(
+                          color: colors.warmWhite,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.08),
+                              blurRadius: 12,
+                              offset: const Offset(0, 3),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.search_rounded, color: colors.coral),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Text(
+                                'Search temples, batik, royal cuisines...',
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: colors.mutedBrown,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: colors.cream,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.tune_rounded,
+                                size: 16,
+                                color: colors.charcoal,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
 

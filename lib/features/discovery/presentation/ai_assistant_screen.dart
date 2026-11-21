@@ -107,33 +107,35 @@ class _AiAssistantScreenState extends State<AiAssistantScreen> {
     Destination? attachedDestination;
     CulturalEntry? attachedCultural;
 
+    Destination? findDestination(String id) {
+      for (final d in MockCulturalData.featuredDestinations) {
+        if (d.id == id) return d;
+      }
+      return null;
+    }
+
+    CulturalEntry? findCultural(String id) {
+      for (final e in MockCulturalData.culturalEntries) {
+        if (e.id == id) return e;
+      }
+      return null;
+    }
+
     final lower = aiAnswer.toLowerCase();
     if (lower.contains('borobudur')) {
-      attachedDestination = MockCulturalData.featuredDestinations.firstWhere(
-        (d) => d.id == 'borobudur',
-      );
+      attachedDestination = findDestination('borobudur');
     } else if (lower.contains('bromo')) {
-      attachedDestination = MockCulturalData.featuredDestinations.firstWhere(
-        (d) => d.id == 'bromo',
-      );
+      attachedDestination = findDestination('bromo');
     } else if (lower.contains('prambanan')) {
-      attachedDestination = MockCulturalData.featuredDestinations.firstWhere(
-        (d) => d.id == 'prambanan',
-      );
+      attachedDestination = findDestination('prambanan');
     }
 
     if (lower.contains('rawon')) {
-      attachedCultural = MockCulturalData.culturalEntries.firstWhere(
-        (e) => e.id == 'rawon',
-      );
+      attachedCultural = findCultural('rawon');
     } else if (lower.contains('gudeg')) {
-      attachedCultural = MockCulturalData.culturalEntries.firstWhere(
-        (e) => e.id == 'gudeg',
-      );
+      attachedCultural = findCultural('gudeg');
     } else if (lower.contains('batik')) {
-      attachedCultural = MockCulturalData.culturalEntries.firstWhere(
-        (e) => e.id == 'batik_tulis',
-      );
+      attachedCultural = findCultural('batik_tulis');
     }
 
     setState(() {

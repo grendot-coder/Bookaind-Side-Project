@@ -122,7 +122,7 @@ class _InteractiveMapScreenState extends ConsumerState<InteractiveMapScreen> {
     final theme = Theme.of(context);
 
     // Watch Supabase live data
-    final destinationsAsync = ref.watch(featuredDestinationsProvider);
+    final destinationsAsync = ref.watch(allDestinationsProvider);
     final provincesAsync = ref.watch(provincesProvider);
 
     final destinations =

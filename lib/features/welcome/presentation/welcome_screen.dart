@@ -3,10 +3,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../../../app/theme/app_colors.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  /// Callback when the user taps "Start Exploring" (Guest bypass)
+  /// Callback when user taps "Start Exploring" or "Explore as Guest"
   final VoidCallback onStartExploring;
 
-  /// Callback when the user taps "Sign In"
+  /// Callback when user taps "Sign In"
   final VoidCallback onSignIn;
 
   const WelcomeScreen({
@@ -38,69 +38,98 @@ class WelcomeScreen extends StatelessWidget {
               color: colors.charcoal,
               child: const Center(
                 child: Icon(
-                  Icons.temple_buddhist,
+                  Icons.landscape_rounded,
                   size: 64,
-                  color: Colors.white38,
+                  color: Colors.white24,
                 ),
               ),
             ),
           ),
 
-          // 2. CINEMATIC MULTI-STOP GRADIENT OVERLAY
+          // 2. CINEMATIC MULTI-STOP GRADIENT OVERLAY (Guaranteed contrast, no floating cards)
           DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                stops: const [0.0, 0.25, 0.5, 1.0],
+                stops: const [0.0, 0.18, 0.45, 0.72, 1.0],
                 colors: [
-                  Colors.black.withValues(alpha: 0.45),
+                  Colors.black.withValues(alpha: 0.65),
+                  Colors.black.withValues(alpha: 0.20),
                   Colors.transparent,
-                  Colors.black.withValues(alpha: 0.55),
-                  Colors.black.withValues(alpha: 0.95),
+                  Colors.black.withValues(alpha: 0.70),
+                  Colors.black.withValues(alpha: 0.96),
                 ],
               ),
             ),
           ),
 
-          // 3. TOP BRANDING PILL
+          // 3. EDITORIAL TOP BAR (No AI floating capsule pills)
           Positioned(
-            top: topPadding + 16,
-            left: 20,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-              decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.45),
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.25)),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 7,
-                    height: 7,
-                    decoration: BoxDecoration(
-                      color: colors.coral,
-                      shape: BoxShape.circle,
+            top: topPadding + 14,
+            left: 24,
+            right: 24,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                // Brand Mark
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: colors.coral,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    const Text(
+                      'BOOKAIND',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 2.2,
+                      ),
+                    ),
+                  ],
+                ),
+
+                // Guest exploration bypass
+                GestureDetector(
+                  onTap: onStartExploring,
+                  behavior: HitTestBehavior.opaque,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Explore as Guest',
+                          style: TextStyle(
+                            color: Colors.white.withValues(alpha: 0.85),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.2,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Icon(
+                          Icons.arrow_forward_rounded,
+                          size: 14,
+                          color: Colors.white.withValues(alpha: 0.85),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  const Text(
-                    'BOOKAIND • NUSANTARA',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.4,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
 
-          // 4. BOTTOM EDITORIAL CONTENT & ACTIONS
+          // 4. BOTTOM EDITORIAL CONTENT & TACTILE ACTIONS
           Positioned(
             left: 24,
             right: 24,
@@ -109,51 +138,55 @@ class WelcomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Location eyebrow badge
+                // Location Eyebrow with hairline rule (Publishing aesthetic)
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.location_on_rounded,
+                    Container(
+                      width: 16,
+                      height: 2,
                       color: colors.saffron,
-                      size: 16,
                     ),
-                    const SizedBox(width: 6),
+                    const SizedBox(width: 8),
                     Text(
-                      'BOROBUDUR, CENTRAL JAVA',
+                      'BOROBUDUR • CENTRAL JAVA',
                       style: TextStyle(
                         color: colors.saffron,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1.2,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 1.8,
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 12),
 
-                // Bold Magazine Display
+                // Display Headline
                 Text(
-                  'Every Island\nTells a Different Story.',
+                  'Every Island\nTells a Story.',
                   style: theme.textTheme.displayMedium?.copyWith(
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    height: 1.12,
-                    fontSize: 38,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 40,
+                    height: 1.08,
+                    letterSpacing: -0.5,
                   ),
                 ),
                 const SizedBox(height: 12),
 
+                // Narrative Subtitle
                 Text(
-                  'Unveil sacred candi, royal culinary arts, and living heritage across the archipelago.',
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.85),
-                    height: 1.5,
-                    fontSize: 15,
+                  'Unveil sacred candi, living traditions, and royal culinary recipes across the Indonesian archipelago.',
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.82),
+                    fontSize: 14,
+                    height: 1.45,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 const SizedBox(height: 28),
 
+                // Primary Action Button (Tactile 14px radius, not pill)
                 SizedBox(
                   width: double.infinity,
                   height: 54,
@@ -162,10 +195,10 @@ class WelcomeScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: colors.coral,
                       foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
                       elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -175,40 +208,43 @@ class WelcomeScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            letterSpacing: 0.5,
+                            letterSpacing: 0.4,
                           ),
                         ),
-                        SizedBox(width: 10),
-                        Icon(Icons.arrow_forward_rounded, size: 20),
+                        SizedBox(width: 8),
+                        Icon(Icons.arrow_forward_rounded, size: 18),
                       ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
 
+                // Secondary Sign In Link
                 Center(
-                  child: TextButton(
-                    onPressed: onSignIn,
-                    child: RichText(
-                      text: TextSpan(
-                        text: 'Already a member? ',
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Already an explorer? ',
                         style: TextStyle(
                           color: Colors.white.withValues(alpha: 0.75),
                           fontSize: 14,
                         ),
-                        children: [
-                          TextSpan(
-                            text: 'Sign In',
-                            style: TextStyle(
-                              color: colors.saffron,
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline,
-                              decorationColor: colors.saffron,
-                            ),
-                          ),
-                        ],
                       ),
-                    ),
+                      GestureDetector(
+                        onTap: onSignIn,
+                        child: Text(
+                          'Sign In',
+                          style: TextStyle(
+                            color: colors.saffron,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            decoration: TextDecoration.underline,
+                            decorationColor: colors.saffron,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

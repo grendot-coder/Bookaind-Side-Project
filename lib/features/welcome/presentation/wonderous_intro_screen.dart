@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class IntroWonder {
   final String imagePath;
   final String title;
+  final String location;
   final Color skyColor;
 
   const IntroWonder({
     required this.imagePath,
     required this.title,
+    required this.location,
     required this.skyColor,
   });
 }
@@ -28,16 +30,18 @@ class _WonderousIntroScreenState extends State<WonderousIntroScreen>
   late final PageController _pageController;
   int _currentPage = 0;
 
-  // The collection of Wonderous artworks!
+  // The collection of Wonderous artworks
   final List<IntroWonder> _wonders = const [
     IntroWonder(
       imagePath: 'assets/images/branding/istiqlal_hero.jpg',
-      title: 'JUST MOVE IT • MASJID ISTIQLAL',
+      title: 'MASJID ISTIQLAL',
+      location: 'JAKARTA • ARCHITECTURE OF UNITY',
       skyColor: Color(0xFF6E8E7A), // Sage green sky
     ),
     IntroWonder(
       imagePath: 'assets/images/branding/sibea_bea_hero.jpg',
-      title: 'JUST MOVE IT • BUKIT SIBEA-BEA',
+      title: 'BUKIT SIBEA-BEA',
+      location: 'SAMOSIR • LAKE TOBA PANORAMA',
       skyColor: Color(0xFFF0655D), // Coral red sky
     ),
   ];
@@ -62,6 +66,8 @@ class _WonderousIntroScreenState extends State<WonderousIntroScreen>
   @override
   Widget build(BuildContext context) {
     final currentWonder = _wonders[_currentPage];
+    final topPadding = MediaQuery.paddingOf(context).top;
+    final bottomPadding = MediaQuery.paddingOf(context).bottom;
 
     return Scaffold(
       backgroundColor: currentWonder.skyColor,
@@ -92,107 +98,188 @@ class _WonderousIntroScreenState extends State<WonderousIntroScreen>
               },
             ),
 
-            // 2. BOTTOM VIGNETTE (For contrast with prompt and dots)
+            // 2. MULTI-STOP VIGNETTES (For top and bottom typographic contrast)
             Positioned(
-              bottom: 0,
+              top: 0,
               left: 0,
               right: 0,
-              height: 220,
+              height: 120,
               child: const IgnorePointer(
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colors.transparent, Colors.black87],
+                      colors: [Colors.black54, Colors.transparent],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: 260,
+              child: const IgnorePointer(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [0.0, 0.45, 1.0],
+                      colors: [
+                        Colors.transparent,
+                        Colors.black54,
+                        Colors.black87,
+                      ],
                     ),
                   ),
                 ),
               ),
             ),
 
-            // 3. TOP EDITORIAL BRAND PILL
+            // 3. EDITORIAL TOP BAR (Publishing aesthetics, no floating pill)
             Positioned(
-              top: MediaQuery.paddingOf(context).top + 16,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.55),
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.2),
-                    ),
-                  ),
-                  child: Row(
+              top: topPadding + 14,
+              left: 24,
+              right: 24,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Brand Mark
+                  Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFFFF704F),
-                          shape: BoxShape.circle,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFF704F),
+                          borderRadius: BorderRadius.circular(2),
                         ),
                       ),
                       const SizedBox(width: 8),
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 300),
-                        child: Text(
-                          currentWonder.title,
-                          key: ValueKey<String>(currentWonder.title),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.4,
-                            fontSize: 11,
-                          ),
+                      const Text(
+                        'BOOKAIND',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 2.2,
                         ),
                       ),
                     ],
                   ),
-                ),
+
+                  // Skip to Welcome
+                  GestureDetector(
+                    onTap: widget.onExplore,
+                    behavior: HitTestBehavior.opaque,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Skip',
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.8),
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0.2,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Icon(
+                            Icons.arrow_forward_rounded,
+                            size: 14,
+                            color: Colors.white.withValues(alpha: 0.8),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
 
-            // 4. BOTTOM CONTROLS: DOT INDICATORS & "SWIPE UP" PROMPT
+            // 4. BOTTOM EDITORIAL DISPLAY & SWIPE UP PROMPT
             Positioned(
-              bottom: 32,
-              left: 20,
-              right: 20,
+              bottom: bottomPadding + 24,
+              left: 24,
+              right: 24,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Dot indicators
+                  // Location Eyebrow
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    child: Column(
+                      key: ValueKey<String>(currentWonder.title),
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 14,
+                              height: 1.5,
+                              color: const Color(0xFFFFC857),
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              currentWonder.location,
+                              style: const TextStyle(
+                                color: Color(0xFFFFC857),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: 1.8,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          currentWonder.title,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 26,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: -0.5,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+
+                  // Minimalist Dash Indicators (not rounded capsule pills)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(_wonders.length, (index) {
                       final isActive = _currentPage == index;
                       return AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        width: isActive ? 22 : 7,
-                        height: 7,
+                        margin: const EdgeInsets.symmetric(horizontal: 3),
+                        width: isActive ? 26 : 8,
+                        height: 2.5,
                         decoration: BoxDecoration(
                           color: isActive ? Colors.white : Colors.white38,
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.circular(1.5),
                         ),
                       );
                     }),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 22),
 
-                  // Swipe up prompt
+                  // Swipe up / Tap Prompt
                   GestureDetector(
                     onTap: widget.onExplore,
+                    behavior: HitTestBehavior.opaque,
                     child: FadeTransition(
                       opacity: Tween<double>(
-                        begin: 0.55,
+                        begin: 0.6,
                         end: 1.0,
                       ).animate(_pulseController),
                       child: Column(
@@ -201,14 +288,14 @@ class _WonderousIntroScreenState extends State<WonderousIntroScreen>
                           Icon(
                             Icons.keyboard_arrow_up_rounded,
                             color: Colors.white,
-                            size: 32,
+                            size: 28,
                           ),
-                          SizedBox(height: 4),
+                          SizedBox(height: 2),
                           Text(
-                            'Swipe up to explore',
+                            'Swipe up or tap to explore',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 15,
+                              fontSize: 13,
                               letterSpacing: 1.2,
                               fontWeight: FontWeight.w600,
                             ),

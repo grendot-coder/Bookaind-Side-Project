@@ -1,70 +1,41 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import '../constants/app_secrets.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class GroqCulturalService {
-  static const String _endpoint =
-      'https://api.groq.com/openai/v1/chat/completions';
-
-  static const String _apiKey = AppSecrets.groqApiKey;
-
-  static const String _model = 'qwen/qwen3.8-27b';
-
-  static const String _systemPrompt = '''
-You are the Nusantara Cultural Guide for the mobile application "Bookaind" with the slogan "Just Move It".
-Your mission is to help Indonesian and international visitors discover the cultural diversity, living traditions, favorite food feedback from the local, royal kingdoms, and travel destinations in Indonesia.
-
-Guidelines:
-1. Tone: Welcoming, warm, culturally respectful, and adventurous (use occasional authentic greetings like "Sugeng Rawuh" or "Sampurasun" avoid religional greeting unless the visitor initiated it first).
-2. Expertise: Indonesian Cultire and traditions, Candi architecture (Borobudur, Prambanan), Batik philosophies (Parang, Kawung), traditional culinary (Gudeg, Rawon), Wayang, Gamelan, and sacred etiquette.
-3. Keep answers concise, engaging, and beautifully formatted with bullet points where appropriate.
-4. If a question is unrelated to Indonesia or travel culture, gently guide the conversation back to discovering Nusantara.
-5. FORMATTING: Output strictly in plain text. NEVER use asterisks (* or **) for bold or italic styling, and never use hashtags (#) for headings. For emphasis or section titles, use simple CAPITAL LETTERS or clean bullet dashes (-).
-6. If the user said something in their languange, try to asnwer with the same language if possible.
-''';
-
-  /// Sends the prompt to Groq and returns the streaming response text
+  /// Sends the prompt to the Supabase Edge Function and returns the answer text
   static Future<String> generateCulturalAnswer({
     required String userPrompt,
     required List<Map<String, String>> conversationHistory,
   }) async {
-    // Fallback if the user hasn't pasted the key yet
-    if (_apiKey == 'PASTE_YOUR_GROQ_API_KEY_HERE' || _apiKey.isEmpty) {
-      return '⚠️ Please paste your Groq API key in `lib/core/services/groq_cultural_service.dart` to enable real-time intelligence!';
+    final cleanPrompt = userPrompt.trim();
+    if (cleanPrompt.isEmpty) {
+      return 'Please ask a question about Indonesian culture, traditions, or travel.';
+    }
+    if (cleanPrompt.length > 600) {
+      return 'Your query is quite long. Please keep questions within 600 characters for the best cultural answers.';
     }
 
     try {
-      final messages = [
-        {'role': 'system', 'content': _systemPrompt},
-        ...conversationHistory,
-        {'role': 'user', 'content': userPrompt},
-      ];
-
-      final response = await http.post(
-        Uri.parse(_endpoint),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $_apiKey',
+      // Calls your Supabase Edge Function securely
+      final response = await Supabase.instance.client.functions.invoke(
+        'smooth-processor',
+        body: {
+          'userPrompt': cleanPrompt,
+          'conversationHistory': conversationHistory,
         },
-        body: jsonEncode({
-          'model': _model,
-          'messages': messages,
-          'temperature': 0.6,
-          'max_tokens': 800,
-        }),
       );
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final answer = data['choices'][0]['message']['content'] as String;
-        // Strip any markdown asterisks (* and **) so they never clutter the UI
-        return answer.replaceAll('*', '').trim();
+      final data = response.data;
+      if (data != null && data['answer'] != null) {
+        return (data['answer'] as String).replaceAll('*', '').trim();
+      } else if (data != null && data['error'] != null) {
+        return 'Assistant error: ${data['error']}';
       } else {
-        final errorData = jsonDecode(response.body);
-        return 'Groq Error (${response.statusCode}): ${errorData['error']?['message'] ?? 'Unable to connect to Groq'}';
+        return 'Unable to retrieve cultural guide response. Please try again.';
       }
+    } on FunctionException catch (e) {
+      return 'Edge Function error (${e.status}): ${e.details ?? e.reasonPhrase ?? e.toString()}';
     } catch (e) {
-      return 'Network error connecting to Groq: $e';
+      return 'Network error connecting to cultural guide: $e';
     }
   }
 }

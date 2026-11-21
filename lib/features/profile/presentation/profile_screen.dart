@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:go_router/go_router.dart';
 import '../../../app/theme/app_colors.dart';
 import 'dart:async';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../core/services/supabase_auth_service.dart';
+import '../../../shared/repositories/cultural_repositories.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -270,104 +273,113 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(height: 16),
 
           // 4. SAVED HERITAGE PREVIEW (BOOKMARKS)
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: colors.warmWhite,
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(
-                color: colors.mutedBrown.withValues(alpha: 0.15),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Saved Heritage',
-                      style: theme.textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      isSignedIn ? '3 items' : '0 items',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: colors.mutedBrown,
-                      ),
-                    ),
-                  ],
+          Consumer(
+            builder: (context, ref, _) {
+              final bookmarks = ref.watch(bookmarksProvider);
+              return Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: colors.warmWhite,
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(
+                    color: colors.mutedBrown.withValues(alpha: 0.15),
+                  ),
                 ),
-                const SizedBox(height: 12),
-                if (!isSignedIn)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: Center(
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.bookmark_border_rounded,
-                            size: 40,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Saved Heritage',
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          '${bookmarks.length} ${bookmarks.length == 1 ? 'item' : 'items'}',
+                          style: theme.textTheme.bodySmall?.copyWith(
                             color: colors.mutedBrown,
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'No saved items yet.\nSign in to bookmark temples, dances, and foods.',
-                            style: theme.textTheme.bodySmall,
-                            textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    if (bookmarks.isEmpty)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        child: Center(
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.bookmark_border_rounded,
+                                size: 40,
+                                color: colors.mutedBrown,
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'No saved items yet.\nTap the bookmark icon on any destination or cultural story.',
+                                style: theme.textTheme.bodySmall,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  )
-                else ...[
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Container(
-                        width: 48,
-                        height: 48,
-                        color: colors.coralSubtle,
-                        child: Icon(Icons.temple_buddhist, color: colors.coral),
-                      ),
-                    ),
-                    title: const Text(
-                      'Borobudur Temple',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: const Text('Central Java • Candi Heritage'),
-                    trailing: const Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 14,
-                    ),
-                  ),
-                  const Divider(),
-                  ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Container(
-                        width: 48,
-                        height: 48,
-                        color: colors.saffronSubtle,
-                        child: Icon(Icons.restaurant, color: colors.saffron),
-                      ),
-                    ),
-                    title: const Text(
-                      'Gudeg Jogja',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: const Text('DI Yogyakarta • Royal Delicacy'),
-                    trailing: const Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      size: 14,
-                    ),
-                  ),
-                ],
-              ],
-            ),
+                        ),
+                      )
+                    else
+                      ...bookmarks.map((item) {
+                        final isLast = item == bookmarks.last;
+                        return Column(
+                          children: [
+                            ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              onTap: () => context.push(item.routePath),
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Container(
+                                  width: 48,
+                                  height: 48,
+                                  color: colors.coralSubtle,
+                                  child: item.imageUrl != null &&
+                                          item.imageUrl!.isNotEmpty
+                                      ? CachedNetworkImage(
+                                          imageUrl: item.imageUrl!,
+                                          fit: BoxFit.cover,
+                                          placeholder: (_, _) =>
+                                              Container(color: colors.cream),
+                                          errorWidget: (_, _, _) => Icon(
+                                            item.icon,
+                                            color: colors.coral,
+                                          ),
+                                        )
+                                      : Icon(item.icon, color: colors.coral),
+                                ),
+                              ),
+                              title: Text(
+                                item.title,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              subtitle: Text(
+                                item.subtitle,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              trailing: const Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                size: 14,
+                              ),
+                            ),
+                            if (!isLast) const Divider(),
+                          ],
+                        );
+                      }),
+                  ],
+                ),
+              );
+            },
           ),
           const SizedBox(height: 16),
 

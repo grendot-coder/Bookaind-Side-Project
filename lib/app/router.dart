@@ -13,6 +13,7 @@ import '../features/discovery/presentation/destination_detail_screen.dart';
 import '../features/discovery/presentation/interactive_map_screen.dart';
 import '../features/discovery/presentation/ai_assistant_screen.dart';
 import '../features/discovery/presentation/province_detail_screen.dart';
+import '../features/discovery/presentation/search_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -108,6 +109,14 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/ai-assistant',
       builder: (context, state) => const AiAssistantScreen(),
+    ),
+
+    GoRoute(
+      path: '/search',
+      builder: (context, state) {
+        final query = state.uri.queryParameters['q'];
+        return SearchScreen(initialQuery: query);
+      },
     ),
   ],
 );

@@ -18,7 +18,7 @@ class ProvinceDetailScreen extends ConsumerWidget {
 
     // Watch live Supabase providers
     final provincesAsync = ref.watch(provincesProvider);
-    final destinationsAsync = ref.watch(featuredDestinationsProvider);
+    final destinationsAsync = ref.watch(allDestinationsProvider);
     final culturalAsync = ref.watch(culturalEntriesProvider);
 
     return provincesAsync.when(

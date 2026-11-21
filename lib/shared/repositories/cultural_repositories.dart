@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/mock_cultural_data.dart';
 import '../models/cultural_model.dart';
@@ -8,6 +9,7 @@ abstract class CulturalRepository {
   Future<List<Province>> getProvinces();
   Future<List<CulturalCategory>> getCategories();
   Future<List<Destination>> getFeaturedDestinations();
+  Future<List<Destination>> getAllDestinations();
   Future<List<CulturalEntry>> getCulturalEntries({String? categoryId});
   Future<List<CulturalEntry>> getCulinaryEntries();
   Future<CulturalEntry?> getCulturalEntryById(String id);
@@ -30,6 +32,11 @@ class MockCulturalRepository implements CulturalRepository {
 
   @override
   Future<List<Destination>> getFeaturedDestinations() async {
+    return MockCulturalData.featuredDestinations;
+  }
+
+  @override
+  Future<List<Destination>> getAllDestinations() async {
     return MockCulturalData.featuredDestinations;
   }
 
@@ -96,6 +103,12 @@ final featuredDestinationsProvider = FutureProvider<List<Destination>>((
   return repository.getFeaturedDestinations();
 });
 
+/// FutureProvider for all destinations (both featured and regular)
+final allDestinationsProvider = FutureProvider<List<Destination>>((ref) async {
+  final repository = ref.watch(culturalRepositoryProvider);
+  return repository.getAllDestinations();
+});
+
 /// FutureProvider for culinary cultural entries
 final culinaryEntriesProvider = FutureProvider<List<CulturalEntry>>((
   ref,
@@ -142,4 +155,45 @@ final destinationByIdProvider =
     FutureProvider.family<Destination?, String>((ref, id) async {
   final repository = ref.watch(culturalRepositoryProvider);
   return repository.getDestinationById(id);
+});
+
+/// Bookmarked heritage item model
+class BookmarkItem {
+  final String id;
+  final String title;
+  final String subtitle;
+  final String routePath;
+  final String? imageUrl;
+  final IconData icon;
+
+  const BookmarkItem({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+    required this.routePath,
+    this.imageUrl,
+    this.icon = Icons.bookmark_rounded,
+  });
+}
+
+// shortcut: in-memory bookmark store, upgrade to Supabase table when user cloud sync is required
+class BookmarksNotifier extends StateNotifier<List<BookmarkItem>> {
+  BookmarksNotifier() : super(const []);
+
+  bool isBookmarked(String id) => state.any((item) => item.id == id);
+
+  bool toggle(BookmarkItem item) {
+    if (isBookmarked(item.id)) {
+      state = state.where((b) => b.id != item.id).toList();
+      return false;
+    } else {
+      state = [...state, item];
+      return true;
+    }
+  }
+}
+
+final bookmarksProvider =
+    StateNotifierProvider<BookmarksNotifier, List<BookmarkItem>>((ref) {
+  return BookmarksNotifier();
 });

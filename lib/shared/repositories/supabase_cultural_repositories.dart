@@ -48,6 +48,17 @@ class SupabaseCulturalRepository implements CulturalRepository {
   }
 
   @override
+  Future<List<Destination>> getAllDestinations() async {
+    try {
+      final response = await _client.from('destinations').select();
+      return (response as List).map((row) => Destination.fromMap(row)).toList();
+    } catch (e) {
+      debugPrint('⚠️ Supabase getAllDestinations error: $e');
+      return MockCulturalData.featuredDestinations;
+    }
+  }
+
+  @override
   Future<List<CulturalEntry>> getCulturalEntries({String? categoryId}) async {
     try {
       var query = _client.from('cultural_entries').select();

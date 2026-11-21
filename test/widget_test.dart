@@ -10,11 +10,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:bookaind/app/app.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('App smoke test verifies introductory screen', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const ProviderScope(child: JustMoveItApp()));
+    await tester.pump();
 
-    expect(find.text('Discover the Living Soul of Indonesia.'), findsOneWidget);
-    expect(find.text('Start Exploring'), findsOneWidget);
+    expect(find.text('BOOKAIND'), findsWidgets);
+    expect(find.text('MASJID ISTIQLAL'), findsOneWidget);
+    expect(find.text('Swipe up or tap to explore'), findsOneWidget);
   });
 }

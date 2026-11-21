@@ -111,6 +111,9 @@ class DestinationDetailScreen extends ConsumerWidget {
               : MockCulturalData.provinces.first,
         );
 
+        final isBookmarked =
+            ref.watch(bookmarksProvider).any((b) => b.id == destination.id);
+
         return Scaffold(
           backgroundColor: colors.cream,
           body: CustomScrollView(
@@ -141,16 +144,35 @@ class DestinationDetailScreen extends ConsumerWidget {
                       backgroundColor: colors.warmWhite.withValues(alpha: 0.9),
                       child: IconButton(
                         icon: Icon(
-                          Icons.bookmark_border_rounded,
+                          isBookmarked
+                              ? Icons.bookmark_rounded
+                              : Icons.bookmark_border_rounded,
                           size: 20,
-                          color: colors.charcoal,
+                          color: isBookmarked ? colors.coral : colors.charcoal,
                         ),
                         onPressed: () {
+                          final added =
+                              ref.read(bookmarksProvider.notifier).toggle(
+                                    BookmarkItem(
+                                      id: destination.id,
+                                      title: destination.title,
+                                      subtitle:
+                                          '${destination.cityOrRegency} • ${destination.categoryLabel}',
+                                      routePath:
+                                          '/destination/${destination.id}',
+                                      imageUrl: destination.imageUrl,
+                                      icon: destination.categoryIcon,
+                                    ),
+                                  );
+                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
-                                'Saved "${destination.title}" to your profile!',
+                                added
+                                    ? 'Saved "${destination.title}" to bookmarks'
+                                    : 'Removed "${destination.title}" from bookmarks',
                               ),
+                              duration: const Duration(seconds: 2),
                               backgroundColor: colors.charcoal,
                             ),
                           );
