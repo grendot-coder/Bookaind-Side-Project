@@ -44,17 +44,20 @@ Most travel apps lock basic guides behind sign-up screens, drain your battery pi
 
 ## How It Works (Choose Your Mode)
 
-```text
-                     +----------------------------------+
-                     |         BOOKAIND ANDROID         |
-                     +----------------------------------+
-                                       |
-           +---------------------------+---------------------------+
-           v                                                       v
-  [ Offline First ]                                       [ Bring Your Own Key ]
-  Bundled JSON Catalog                                    Free Groq or Gemini Key
-  + Curated Itineraries                                   Stored via Keystore
-  + Local Bookmarks                                       Direct Device -> AI API
+
+###  Offline First                                     
+  Bundled JSON Catalog                                 
+  + Curated Itineraries                                  
+  + Local Bookmarks 
+  
+or
+  
+### BYOK AI to use the AI feature 
+  Use Free Groq or Gemini Key and enter it in-App
+  Stored via Keystore
+  Direct Device -> AI API
+  
+  
 ```
 
 | Mode | What You Need | What You Get |
