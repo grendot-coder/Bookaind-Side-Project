@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'app/app.dart';
+import 'core/services/local_settings_service.dart';
+import 'core/services/supabase_config.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Supabase.initialize(
-    url: 'https://wujzkjqorhvwsivfjxlq.supabase.co',
-    anonKey: 'sb_publishable_0Pb3CecDAPpti5NHPT9JnA_5BApQ-5E',
+
+  final prefs = await SharedPreferences.getInstance();
+  await LocalSettingsService.warmUpCache(prefs);
+  await SupabaseConfig.initializeIfConfigured();
+
+  runApp(
+    ProviderScope(
+      overrides: [
+        sharedPreferencesProvider.overrideWithValue(prefs),
+      ],
+      child: const JustMoveItApp(),
+    ),
   );
-  runApp(const ProviderScope(child: JustMoveItApp()));
 }

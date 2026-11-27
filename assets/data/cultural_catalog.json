@@ -1,0 +1,548 @@
+{
+    "provinces":  [
+                      {
+                          "id":  "jateng",
+                          "name":  "Central Java",
+                          "local_name":  "Jawa Tengah",
+                          "capital":  "Semarang",
+                          "tagline":  "Cradle of Ancient Temples \u0026 Majestic Empires",
+                          "hero_image_url":  "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?q=80\u0026w=1000\u0026auto=format\u0026fit=crop",
+                          "latitude":  -7.150975,
+                          "longitude":  110.140259
+                      },
+                      {
+                          "id":  "jatim",
+                          "name":  "East Java",
+                          "local_name":  "Jawa Timur",
+                          "capital":  "Surabaya",
+                          "tagline":  "Land of Volcanic Wonders \u0026 Majapahit History",
+                          "hero_image_url":  "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?q=80\u0026w=1000\u0026auto=format\u0026fit=crop",
+                          "latitude":  -7.536064,
+                          "longitude":  112.238402
+                      },
+                      {
+                          "id":  "dki",
+                          "name":  "DKI Jakarta",
+                          "local_name":  "Khusus Ibukota Jakarta",
+                          "capital":  "Jakarta",
+                          "tagline":  "Dynamic Epicenter of Betawi Culture \u0026 Modern Life",
+                          "hero_image_url":  "https://images.unsplash.com/photo-1555899434-94d1368aa7af?q=80\u0026w=1000\u0026auto=format\u0026fit=crop",
+                          "latitude":  -6.208763,
+                          "longitude":  106.845599
+                      },
+                      {
+                          "id":  "sumut",
+                          "name":  "North Sumatera",
+                          "local_name":  "Sumatera Utara",
+                          "capital":  "Medan",
+                          "tagline":  "One of the biggest province",
+                          "hero_image_url":  "https://northabroad.com/wp-content/uploads/north-sumatra-DJI_0554-1200x800.jpg",
+                          "latitude":  2.0108563,
+                          "longitude":  98.9784887
+                      },
+                      {
+                          "id":  "sulut",
+                          "name":  "North Sulawesi",
+                          "local_name":  "Sulawesi Utara",
+                          "capital":  "Manado",
+                          "tagline":  "The Closest Indonesian Province to The Philippines",
+                          "hero_image_url":  "https://i.redd.it/y7lszifmj7061.jpg",
+                          "latitude":  0.6556,
+                          "longitude":  124.0902
+                      },
+                      {
+                          "id":  "maluku",
+                          "name":  "Moluccas",
+                          "local_name":  "Maluku",
+                          "capital":  "Ambon",
+                          "tagline":  "The Spice Island",
+                          "hero_image_url":  "https://www.experiencetravelgroup.com/wp-content/uploads/2025/07/RASCAL-voyages-The-Spice-Islands-Indonesia-Banda-Api-Volcano-1024x735.jpg",
+                          "latitude":  -2.916,
+                          "longitude":  129.45
+                      },
+                      {
+                          "id":  "ntt",
+                          "name":  "East Nusa Tenggara",
+                          "local_name":  "Nusa Tenggara Timur",
+                          "capital":  "Kupang",
+                          "tagline":  "Nature Transforms Tomorrow",
+                          "hero_image_url":  "https://indonesiajuara.asia/wp-content/uploads/2023/03/Pulau-Padar-Labuan-Bajo.webp",
+                          "latitude":  -8.6573,
+                          "longitude":  121.0794
+                      },
+                      {
+                          "id":  "papua",
+                          "name":  "Papua",
+                          "local_name":  "Papua",
+                          "capital":  "Jayapura",
+                          "tagline":  "The Eastern Frontier of Endless Wonders",
+                          "hero_image_url":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJWX3rzisDBlYkfI4gpo6ZCoCXDZrCyML_57NGW7NP6Q\u0026s=10",
+                          "latitude":  -2.533,
+                          "longitude":  140.717
+                      },
+                      {
+                          "id":  "papuabarat",
+                          "name":  "West Papua",
+                          "local_name":  "Papua Barat",
+                          "capital":  "Manokwari",
+                          "tagline":  "Where the Wild Still Whispers",
+                          "hero_image_url":  "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/City_of_Manokwari.jpg/500px-City_of_Manokwari.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=parser\u0026utm_content=thumbnail",
+                          "latitude":  -0.8615,
+                          "longitude":  134.062
+                      },
+                      {
+                          "id":  "papuatengah",
+                          "name":  "Central Papua",
+                          "local_name":  "Papua",
+                          "capital":  "Nabire",
+                          "tagline":  "In The Shades of The Giants",
+                          "hero_image_url":  "https://www.pesonaindo.com/wp-content/uploads/2016/09/Cartenz-Papua-Indonesia-1024x768.jpg",
+                          "latitude":  -3.3667,
+                          "longitude":  135.4833
+                      },
+                      {
+                          "id":  "papuaselatan",
+                          "name":  "South Papua",
+                          "local_name":  "Papua Selatan",
+                          "capital":  "Merauke",
+                          "tagline":  "Homes of The Untouched Wetlands",
+                          "hero_image_url":  "https://www.indonesia.travel/contentassets/c71cfb595bc540c09ec1b9cbf7c24d6d/rumah-adat-jaw.webp",
+                          "latitude":  -8.4932,
+                          "longitude":  140.4018
+                      },
+                      {
+                          "id":  "papuabaratdaya",
+                          "name":  "Southwest Papua",
+                          "local_name":  "Papua Barat Daya",
+                          "capital":  "Sorong",
+                          "tagline":  "Land\u0027s of The Kings",
+                          "hero_image_url":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1h_rBr38XsRtfwzwJMC2M_dgdhP4IzqLZNP2C61qjxA\u0026s=10",
+                          "latitude":  -0.8762,
+                          "longitude":  131.2558
+                      },
+                      {
+                          "id":  "papuagunung",
+                          "name":  "Highlands Papua",
+                          "local_name":  "Papua Pegunungan",
+                          "capital":  "Wamena",
+                          "tagline":  "The Land\u0027s of the GIants",
+                          "hero_image_url":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpznUv3cJSk6OVJGd6EtnBaLAjeAfbCGXC31-vmhQP9Kh_1pVJIzMLsdnL\u0026s=10",
+                          "latitude":  -4.1,
+                          "longitude":  138.95
+                      },
+                      {
+                          "id":  "lampung",
+                          "name":  "Lampung",
+                          "local_name":  "Lampung",
+                          "capital":  "Bandar Lampung",
+                          "tagline":  "The Gateway to Sumatera",
+                          "hero_image_url":  "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Tugu_Siger.jpg/1280px-Tugu_Siger.jpg?utm_source=id.wikipedia.org\u0026utm_campaign=index\u0026utm_content=thumbnail",
+                          "latitude":  -5.45,
+                          "longitude":  105.26667
+                      },
+                      {
+                          "id":  "jabar",
+                          "name":  "West Java",
+                          "local_name":  "Jawa Barat",
+                          "capital":  "Bandung",
+                          "tagline":  "Sundanese Melodies, Tea Highlands \u0026 Hospitality",
+                          "hero_image_url":  "https://assets.promediateknologi.id/crop/0x0:0x0/1200x0/webp/photo/2021/10/01/3219367321.jpg",
+                          "latitude":  -6.917464,
+                          "longitude":  107.619123
+                      },
+                      {
+                          "id":  "banten",
+                          "name":  "Banten",
+                          "local_name":  "Banten",
+                          "capital":  "Serang",
+                          "tagline":  "Baduy Traditions \u0026 Ancient Maritime Sultanates",
+                          "hero_image_url":  "https://banten.bantenprov.go.id/storage/photos/1129/Masjid%20Agung%20Banten%20-%20djkn.kemenkeu.go.id.jpeg",
+                          "latitude":  -6.405817,
+                          "longitude":  106.064018
+                      },
+                      {
+                          "id":  "diy",
+                          "name":  "DI Yogyakarta",
+                          "local_name":  "Daerah Istimewa Yogyakarta",
+                          "capital":  "Yogyakarta",
+                          "tagline":  "The Soul of Javanese Classical Arts \u0026 Heritage",
+                          "hero_image_url":  "https://upload.wikimedia.org/wikipedia/commons/1/10/Yogyakarta_Indonesia_Tugu-Yogyakarta-02.jpg?utm_source=id.wikipedia.org\u0026utm_campaign=index\u0026utm_content=original",
+                          "latitude":  -7.797068,
+                          "longitude":  110.370529
+                      }
+                  ],
+    "categories":  [
+                       {
+                           "id":  "food",
+                           "name":  "Traditional Culinary",
+                           "slug":  "culinary",
+                           "icon_name":  "restaurant",
+                           "accent_color_key":  "saffron"
+                       },
+                       {
+                           "id":  "textile",
+                           "name":  "Batik \u0026 Weaving",
+                           "slug":  "textile",
+                           "icon_name":  "texture",
+                           "accent_color_key":  "coral"
+                       },
+                       {
+                           "id":  "dance_music",
+                           "name":  "Dance \u0026 Gamelan",
+                           "slug":  "performing_arts",
+                           "icon_name":  "music_note",
+                           "accent_color_key":  "teal"
+                       },
+                       {
+                           "id":  "architecture",
+                           "name":  "Keraton \u0026 Candi",
+                           "slug":  "architecture",
+                           "icon_name":  "account_balance",
+                           "accent_color_key":  "blue"
+                       }
+                   ],
+    "destinations":  [
+                         {
+                             "id":  "borobudur",
+                             "title":  "Borobudur Temple",
+                             "province_id":  "jateng",
+                             "city_or_regency":  "Magelang",
+                             "tagline":  "The World\u0027s Largest Buddhist Monument",
+                             "description":  "Rising above the lush landscapes of Magelang, Borobudur is one of Indonesia\u0027s most extraordinary historical and spiritual landmarks. Built between the 8th and 9th centuries under the Sailendra Dynasty, this monumental Buddhist temple is renowned for its intricate stone reliefs, towering central stupa, and 72 perforated stupas surrounding its upper terraces. Its architecture reflects Buddhist cosmology, symbolizing a spiritual journey toward enlightenment. Today, Borobudur remains an important place of worship and a UNESCO World Heritage Site, standing as a remarkable testament to the artistic and spiritual achievements of ancient Java.",
+                             "image_url":  "https://images.unsplash.com/photo-1596402184320-417e7178b2cd?q=80\u0026w=1000\u0026auto=format\u0026fit=crop",
+                             "rating":  4.9,
+                             "entry_fee_range":  "Rp 50.000 - Rp 350.000",
+                             "is_featured":  true,
+                             "latitude":  -7.607874,
+                             "longitude":  110.203751,
+                             "type":  "structure"
+                         },
+                         {
+                             "id":  "prambanan",
+                             "title":  "Prambanan Temple Compounds",
+                             "province_id":  "diy",
+                             "city_or_regency":  "Sleman",
+                             "tagline":  "Soaring Trimurti Hindu Architecture",
+                             "description":  "Rising majestically from the plains between Yogyakarta and Central Java, Prambanan is Indonesia\u0027s largest Hindu temple complex and one of the most remarkable monuments of ancient Java. Built during the 9th century, its towering stone shrines are dedicated to the Hindu Trimurti: Brahma the Creator, Vishnu the Preserver, and Shiva the Destroyer. Intricate reliefs depicting the Ramayana adorn its temple galleries, bringing ancient mythology to life through stone. Despite centuries of abandonment and damage, Prambanan has endured as a magnificent testament to Java\u0027s Hindu civilization, its artistic achievements, and its enduring spiritual heritage.",
+                             "image_url":  "https://cdn.pixabay.com/photo/2016/04/01/22/16/prambanan-1301726_1280.jpg",
+                             "rating":  4.8,
+                             "entry_fee_range":  "Rp 50.000 - Rp 350.000",
+                             "is_featured":  true,
+                             "latitude":  -7.75202,
+                             "longitude":  110.491467,
+                             "type":  "structure"
+                         },
+                         {
+                             "id":  "istiqlal",
+                             "title":  "Istiqlal Grand Mosque",
+                             "province_id":  "dki",
+                             "city_or_regency":  "Jakarta Pusat",
+                             "tagline":  "The National Mosque of Indonesian Independence",
+                             "description":  "Designed by architect Friedrich Silaban, Istiqlal is Southeast Asia\u0027s largest mosque, symbol of unity standing gracefully across the Jakarta Cathedral.",
+                             "image_url":  "https://static.vecteezy.com/system/resources/previews/051/436/154/large_2x/istiqlal-mosque-jakarta-with-golden-lights-on-in-the-evening-photo.JPG",
+                             "rating":  4.9,
+                             "entry_fee_range":  "Free / Donation",
+                             "is_featured":  true,
+                             "latitude":  -6.1702,
+                             "longitude":  106.8314,
+                             "type":  "structure"
+                         },
+                         {
+                             "id":  "sibeabea",
+                             "title":  "Patung Yesus Bukit Sibea-Bea",
+                             "province_id":  "sumut",
+                             "city_or_regency":  "Samosir",
+                             "tagline":  "World Tallest Jesus the Saviour statue",
+                             "description":  "Standing Tall over the hill of SIbea-Bea, Christ the Saviour statue is the World Tallest Jesus Statue that stood right beside the Lake Toba.",
+                             "image_url":  "https://ak-d.tripcdn.com/images/1mi0h224x925fm1p9F099.jpg?proc=source/trip",
+                             "rating":  4.7,
+                             "entry_fee_range":  "5.000-150.000",
+                             "is_featured":  true,
+                             "latitude":  2.5481,
+                             "longitude":  98.6719,
+                             "type":  "structure"
+                         },
+                         {
+                             "id":  "dieng",
+                             "title":  "Dieng Plateau",
+                             "province_id":  "jateng",
+                             "city_or_regency":  "Wonosobo",
+                             "tagline":  "The Land Above the Clouds",
+                             "description":  "The Dieng Plateau, often called simply Dieng is a plateau in Central Java, Indonesia that forms the floor of the caldera complex on the Dieng Volcanic Complex. Administratively, this plateau is included in the territory of Banjarnegara Regency and Wonosobo Regency. It covers agricultural areas that have a subtropical climate with high levels of rainfall. Rich of culture and has a very chilling temperature.",
+                             "image_url":  "https://img.cnt.traveloka.com/tvlk/blog/2025/03/dieng-plateu-desk.png?tr=q-70,c-at_max,w-500,h-250,dpr-2",
+                             "rating":  4.5,
+                             "entry_fee_range":  "Free",
+                             "is_featured":  true,
+                             "latitude":  -7.20611,
+                             "longitude":  109.91194,
+                             "type":  "nature"
+                         },
+                         {
+                             "id":  "ujungkulon",
+                             "title":  "Taman Nasional Ujung Kulon",
+                             "province_id":  "banten",
+                             "city_or_regency":  "Pandeglang",
+                             "tagline":  "The Last Refuge of The Javan Rhino",
+                             "description":  "Taman Nasional Ujung Kulon is located at the westernmost tip of Java Island, in Banten, Indonesia. Established as one of Indonesia\u0027s most important conservation areas, it is renowned for its pristine tropical rainforests, diverse wildlife, and breathtaking coastal landscapes. Most notably, the park serves as the last refuge of the critically endangered Javan rhinoceros, making it one of the most significant wildlife sanctuaries in the world. Recognized as a UNESCO World Heritage Site, Ujung Kulon offers a remarkable glimpse into Java\u0027s remaining wilderness.",
+                             "image_url":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDFIRfmrzPQxuE-_s_SXFpGTsuePCEOCh8MW2-kPSPKuRpLhtyHVXANAJa\u0026s=10",
+                             "rating":  4.5,
+                             "entry_fee_range":  "20.000 - 200.000 IDR",
+                             "is_featured":  true,
+                             "latitude":  -6.7667,
+                             "longitude":  105.3167,
+                             "type":  "nature"
+                         },
+                         {
+                             "id":  "bawean",
+                             "title":  "Bawean Island",
+                             "province_id":  "jatim",
+                             "city_or_regency":  "Gresik",
+                             "tagline":  "Island of Women",
+                             "description":  "Bawean Island is a beautiful island located in the Java Sea, north of Gresik, East Java, Indonesia. Known locally as \"Pulau Putri\" because the population majority is women. Also know for its pristine beaches, turquoise waters, lush landscapes, and peaceful atmosphere, the island offers a unique blend of natural beauty and cultural heritage. Home to distinctive local traditions and the rare Bawean deer, the island is a hidden gem for travelers seeking an authentic Indonesian island experience.",
+                             "image_url":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDdePTGlRs2_jkVxXOU2_QZuReZnVq1NfW_arut1lWzSYAoz_w7utMGMCT\u0026s=10",
+                             "rating":  4.6,
+                             "entry_fee_range":  "Free / 200K IDR for Transport",
+                             "is_featured":  true,
+                             "latitude":  -5.795,
+                             "longitude":  112.66,
+                             "type":  "marine"
+                         },
+                         {
+                             "id":  "siau",
+                             "title":  "Siau Island",
+                             "province_id":  "sulut",
+                             "city_or_regency":  "Kepulauan Sitaro",
+                             "tagline":  "Home of Christian Seafarer Kingdom",
+                             "description":  "Siau Island is known to the local and Indonesian as home of the once thriving Kerajaan Siau, one of the oldest Seafaring Christian Kingdom in Indonesia",
+                             "image_url":  "https://img.tempo.co/teras-id/partners/article/2026/februari/1b2e77cc-82b0-47ab-ac67-ce66f9650c91.jpg",
+                             "rating":  4.3,
+                             "entry_fee_range":  "Free / 220K IDR For Transport",
+                             "is_featured":  true,
+                             "latitude":  2.75,
+                             "longitude":  125.4,
+                             "type":  "marine"
+                         },
+                         {
+                             "id":  "menarakudus",
+                             "title":  "Menara Kudus Mosque",
+                             "province_id":  "jateng",
+                             "city_or_regency":  "Kudus",
+                             "tagline":  "Proof of Islamic Acculturation in Java",
+                             "description":  "Al-Aqsha Menara Kudus Mosque or locally called Masjid Menara Kudus is a historic mosque located in Kudus, Central Java, Indonesia. Established in 1549 by Sunan Kudus, one of the revered Wali Songo who played a major role in spreading Islam across Java, the mosque is renowned for its distinctive red-brick minaret resembling a Hindu-Buddhist temple. Blending Islamic religious architecture with traditional Javanese and pre-Islamic influences, it stands as a remarkable testament to Indonesia\u0027s cultural and religious heritage. Today, Masjid Menara Kudus remains an important pilgrimage destination and a symbol of peaceful cultural adaptation in the history of Islam in Java.",
+                             "image_url":  "https://upload.wikimedia.org/wikipedia/commons/8/85/Masjid_Menara_Kudus.jpg?utm_source=id.wikipedia.org\u0026utm_campaign=index\u0026utm_content=original",
+                             "rating":  4.8,
+                             "entry_fee_range":  "Free",
+                             "is_featured":  true,
+                             "latitude":  -6.8085,
+                             "longitude":  110.8319,
+                             "type":  "structure"
+                         },
+                         {
+                             "id":  "pugungraharjo",
+                             "title":  "Pugungraharjo Prehistoric Garden",
+                             "province_id":  "lampung",
+                             "city_or_regency":  "Lampung",
+                             "tagline":  "A Little Remnant of The Past Civillization",
+                             "description":  "Pugungraharjo Prehistoric Site is the one of most unique site in Indonesia. This site hold history from the Megalitic, Hindu-Buddhist era, to the Islamic era of Indonesia.",
+                             "image_url":  "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Pugung_Raharjo_Pyramid_1.jpg/1920px-Pugung_Raharjo_Pyramid_1.jpg?utm_source=id.wikipedia.org\u0026utm_campaign=imageinfo\u0026utm_content=thumbnail",
+                             "rating":  4.5,
+                             "entry_fee_range":  "Free",
+                             "is_featured":  true,
+                             "latitude":  -5.28204,
+                             "longitude":  105.561018,
+                             "type":  "structure"
+                         },
+                         {
+                             "id":  "bunaken",
+                             "title":  "Bunaken National Marine Park",
+                             "province_id":  "sulut",
+                             "city_or_regency":  "Manado",
+                             "tagline":  "Indonesia\u0027s Undewater Paradise",
+                             "description":  "Bunaken National Marine Park or simply Bunaken Island is an island located just northwest of Manado. Well known for its beautiful coral reef and marine life, Bunaken also has Christian Majority population of Minahasan who lives in Bunaken to preserve the nature.",
+                             "image_url":  "https://img.magnific.com/premium-photo/small-port-bunaken-island-sulawesi-indonesia-with-volcano-view_118047-21900.jpg?semt=ais_hybrid\u0026w=740\u0026q=80",
+                             "rating":  4.7,
+                             "entry_fee_range":  "10.000-150.000",
+                             "is_featured":  false,
+                             "latitude":  1.6167,
+                             "longitude":  124.75,
+                             "type":  "marine"
+                         },
+                         {
+                             "id":  "bromo",
+                             "title":  "Mount Bromo \u0026 Tengger",
+                             "province_id":  "jatim",
+                             "city_or_regency":  "Probolinggo",
+                             "tagline":  "Active Volcanic Caldera \u0026 Sea of Sand",
+                             "description":  "Stretching across the volcanic highlands of East Java, Bromo Tengger Semeru National Park is a landscape shaped by fire, time, and ancient traditions. At its heart lies the vast Tengger Caldera, where Mount Bromo rises from an immense sea of sand beneath the towering presence of Mount Semeru. Beyond its dramatic volcanic scenery, the region is also home to the Tenggerese people, whose distinctive Hindu traditions and annual Yadnya Kasada ceremony remain deeply connected to the surrounding mountains. From its otherworldly landscapes to its enduring cultural heritage, Bromo offers a remarkable encounter with the natural and spiritual character of Java.",
+                             "image_url":  "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?q=80\u0026w=1000\u0026auto=format\u0026fit=crop",
+                             "rating":  4.9,
+                             "entry_fee_range":  "Rp 30.000 - Rp 220.000",
+                             "is_featured":  true,
+                             "latitude":  -7.942494,
+                             "longitude":  112.953012,
+                             "type":  "nature"
+                         },
+                         {
+                             "id":  "belgica",
+                             "title":  "Fort Belgica",
+                             "province_id":  "maluku",
+                             "city_or_regency":  "Banda Neira",
+                             "tagline":  "The VOC\u0027s Stronghold Over Banda Neira",
+                             "description":  "Fort Belgica or also called \"The Indonesian Pentagon\", is a historic Dutch colonial fortress situated on a hill overlooking Banda Neira, in the Banda Islands of Maluku, Indonesia. Originally established in 1611 as a small fortification to protect Fort Nassau from attacks from the surrounding highlands, it was subsequently rebuilt and expanded into an imposing pentagonal fortress during the late seventeenth century. Strategically positioned above the harbour and Fort Nassau, Belgica formed an essential component of the VOC\u0027s military presence in Banda, helping secure its control over the islands\u0027 valuable nutmeg trade. Today, the fortress stands as one of the most recognizable colonial monuments in the Spice Islands.",
+                             "image_url":  "https://upload.wikimedia.org/wikipedia/commons/4/43/Fort_Belgica_%2848250814991%29.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=index\u0026utm_content=original",
+                             "rating":  4.7,
+                             "entry_fee_range":  "Free / Donation",
+                             "is_featured":  true,
+                             "latitude":  -4.5261,
+                             "longitude":  129.8989,
+                             "type":  "structure"
+                         },
+                         {
+                             "id":  "nassau",
+                             "title":  "Fort Nassau",
+                             "province_id":  "maluku",
+                             "city_or_regency":  "Banda Neira",
+                             "tagline":  "The First Dutch Fort in The Spice Islands.",
+                             "description":  "Fort Nassau is a historic Dutch colonial fortress located on Banda Neira, in the Banda Islands of Maluku, Indonesia. Constructed in 1609 upon the remains of an earlier Portuguese fortification, it became the first permanent Dutch stronghold in the Banda archipelago and served as the administrative center of the VOC\u0027s presence in the islands. Built to secure control over the lucrative nutmeg trade, the fortress became a focal point of conflict between the Dutch East India Company and the Bandanese, who resisted the imposition of a Dutch trading monopoly. Its history reflects the beginning of a violent colonial struggle that would profoundly transform Banda\u0027s society and economy.",
+                             "image_url":  "https://upload.wikimedia.org/wikipedia/commons/9/93/Fort_Nassau_%2848227906147%29.jpg?utm_source=en.wikipedia.org\u0026utm_campaign=index\u0026utm_content=original",
+                             "rating":  4.3,
+                             "entry_fee_range":  "Free / Donation",
+                             "is_featured":  true,
+                             "latitude":  -4.5282,
+                             "longitude":  129.8979,
+                             "type":  "structure"
+                         },
+                         {
+                             "id":  "waerebo",
+                             "title":  "Wae Rebo Village",
+                             "province_id":  "ntt",
+                             "city_or_regency":  "Manggarai",
+                             "tagline":  "The Most Beautiful Village in The World",
+                             "description":  "Wae Rebo Village is a trafitional village located in Manggarai  regency, East Nusa Tenggara. Renowned for its seven iconic cone-shaped Mbaru Niang houses. Surrounded by lush mountains and the Todo Forest. It functions as a living community of coffee farmers and indigenous Manggarai people who maintain ancestral customs, traditional weaving, and a communal lifestyle. , offering a remarkable glimpse into traditional architecture, communal living, and the enduring harmony between culture and nature.",
+                             "image_url":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGIuMOAjs6y9UEkatB_W8kc4eftLjGIXqTSeBoFNRau4on8vB8JJZJew2W\u0026s=10",
+                             "rating":  4.7,
+                             "entry_fee_range":  "200.000 - 250.00 Daytrip\n325.000 - 400.00 Overnight Lodging",
+                             "is_featured":  true,
+                             "latitude":  -8.7691,
+                             "longitude":  120.2838,
+                             "type":  "village"
+                         },
+                         {
+                             "id":  "tamansari",
+                             "title":  "Kampung WIsata Taman Sari",
+                             "province_id":  "jateng",
+                             "city_or_regency":  "Yogyakarta",
+                             "tagline":  "The Once Royal Garden of The Sultanate",
+                             "description":  "Kampung Wisata Taman Sari is a former royal garden complex located near the Yogyakarta Palace in the Special Region of Yogyakarta. Built during the reign of Sultan Hamengku Buwono I in the 18th century, it once featured artificial lakes, bathing pools, pavilions, underground passages, and a mosque. Though much of the complex was damaged by the 1867 earthquake, its surviving structures remain a remarkable testament to the grandeur of the Yogyakarta Sultanate. Today, these historical remains stand alongside Kampung Taman, where local residents continue to live among the remnants of the royal garden.",
+                             "image_url":  "https://upload.wikimedia.org/wikipedia/commons/0/07/Indonesia_-_Java_-_Yogyakarta_-_Taman_Sari.jpg?utm_source=id.wikipedia.org\u0026utm_campaign=index\u0026utm_content=original",
+                             "rating":  4.6,
+                             "entry_fee_range":  "15.000 for Local Tourist\n25.000 for Foreign Tourist\n3.000 Camera Fee",
+                             "is_featured":  true,
+                             "latitude":  -7.810151,
+                             "longitude":  110.358946,
+                             "type":  "desa"
+                         },
+                         {
+                             "id":  "sentani",
+                             "title":  "Lake Sentani",
+                             "province_id":  "papua",
+                             "city_or_regency":  "Jayapura",
+                             "tagline":  "Here We Lives in Peace",
+                             "description":  "Lake Sentani stretches across the landscape beneath the Cyclops Mountains, creating one of Papua\u0027s most recognizable natural settings. Its waters are dotted with small islands and bordered by lakeside settlements, where the lives and traditions of the Sentani people remain closely connected to the lake. Visitors can discover traditional villages, local handicrafts, fishing culture, and the region\u0027s distinctive art. The annual Lake Sentani Festival also celebrates the area\u0027s cultural heritage through traditional performances, music, and dance.",
+                             "image_url":  "https://www.alltrails.com/mugen/image/location-app-router?url=https%3A%2F%2Fimages.alltrails.com%2FeyJidWNrZXQiOiJhc3NldHMuYWxsdHJhaWxzLmNvbSIsImtleSI6InVwbG9hZHMvcGhvdG8vaW1hZ2UvNjMzNjU5NzgvMjg0OTRkMzAwNDU3NWMwNjAwZjBjODUzZDk1NGQ4ZTcuanBnIiwiZWRpdHMiOnsidG9Gb3JtYXQiOiJ3ZWJwIiwicmVzaXplIjp7IndpZHRoIjoiMTA4MCIsImhlaWdodCI6IjcwMCIsImZpdCI6ImNvdmVyIn0sInJvdGF0ZSI6bnVsbCwianBlZyI6eyJ0cmVsbGlzUXVhbnRpc2F0aW9uIjp0cnVlLCJvdmVyc2hvb3REZXJpbmdpbmciOnRydWUsIm9wdGltaXNlU2NhbnMiOnRydWUsInF1YW50aXNhdGlvblRhYmxlIjozfX19\u0026w=3840\u0026q=90",
+                             "rating":  4.5,
+                             "entry_fee_range":  "Free / \nDepend on where you go",
+                             "is_featured":  true,
+                             "latitude":  -2.61667,
+                             "longitude":  140.56667,
+                             "type":  "nature"
+                         },
+                         {
+                             "id":  "baluran",
+                             "title":  "Baluran National park",
+                             "province_id":  "jatim",
+                             "city_or_regency":  "Situbondo",
+                             "tagline":  "Africa Van Java",
+                             "description":  "Baluran National Park, or Taman Nasional Baluran, is a protected natural area located in Situbondo Regency, East Java. Centered around the extinct Mount Baluran, the park is renowned for its vast open savannahs, which resemble the landscapes of Central Africa and have earned it the nickname “Africa van Java.” Beyond its iconic grasslands, Baluran encompasses diverse ecosystems, including seasonal forests, mangroves, and coastal habitats, providing refuge for an array of wildlife, including the endangered Javan banteng.",
+                             "image_url":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIeuVXEFRxlglJCSgAtOWDh2SeigvYTsMXsb4hhzipm-eXiymhcxHXrGk\u0026s=10",
+                             "rating":  4.7,
+                             "entry_fee_range":  "21.000 - 31.000 for Local Tourist\n205.000 for Foreign Tourist",
+                             "is_featured":  false,
+                             "latitude":  -7.8636,
+                             "longitude":  114.3975,
+                             "type":  "nature"
+                         }
+                     ],
+    "cultural_entries":  [
+                             {
+                                 "id":  "gudeg",
+                                 "category_id":  "food",
+                                 "title":  "Gudeg Jogja",
+                                 "local_name":  "Gudeg Nangka Muda",
+                                 "summary":  "Slow-cooked young jackfruit with palm sugar, coconut milk, and teak leaves.",
+                                 "description":  "The signature royal delicacy of Yogyakarta, simmered for over 12 hours until deep mahogany, served with krecek (spicy beef skin) and areh coconut sauce.",
+                                 "province_ids":  [
+                                                      "diy",
+                                                      "jateng"
+                                                  ],
+                                 "image_url":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzJvFi00uYX6u-lX1cirJtFIa3kVHJPEfFWAX0ymJi2Z4eRuoo6Pdx-yw\u0026s=10",
+                                 "is_unesco_recognized":  false
+                             },
+                             {
+                                 "id":  "rawon",
+                                 "category_id":  "food",
+                                 "title":  "Rawon Surabaya",
+                                 "local_name":  "Rawon Daging Kluwek",
+                                 "summary":  "Rich black beef soup spiced with roasted keluak nuts.",
+                                 "description":  "An ancient East Javanese beef soup characterized by its inky black broth flavored with fermented keluak nut, served with salted duck egg and bean sprouts.",
+                                 "province_ids":  [
+                                                      "jatim"
+                                                  ],
+                                 "image_url":  "https://thumbs.dreamstime.com/b/rawon-beef-soup-black-sauce-made-kluwek-spices-photo-dish-delicious-385179051.jpg",
+                                 "is_unesco_recognized":  false
+                             },
+                             {
+                                 "id":  "wayang_kulit",
+                                 "category_id":  "dance_music",
+                                 "title":  "Wayang Kulit Shadow Puppet",
+                                 "local_name":  "Wayang Kulit Purwa",
+                                 "summary":  "Mythological shadow play accompanied by live gamelan and the Dalang narrator.",
+                                 "description":  "Masterpiece of Oral and Intangible Heritage of Humanity (UNESCO 2003). The puppet master (Dalang) breathes life into leather puppets retelling Mahabharata epics.",
+                                 "province_ids":  [
+                                                      "jateng",
+                                                      "diy",
+                                                      "jatim"
+                                                  ],
+                                 "image_url":  "https://thumbs.dreamstime.com/b/wayang-kulit-shadow-puppets-java-indonesia-puppet-show-dalang-puppeteer-made-leather-251433581.jpg",
+                                 "is_unesco_recognized":  true
+                             },
+                             {
+                                 "id":  "batik_tulis",
+                                 "category_id":  "textile",
+                                 "title":  "Batik Tulis Keraton",
+                                 "local_name":  "Batik Tulis Tradisional",
+                                 "summary":  "Intricate wax-resist hand-dyed textile embodying philosophical motifs.",
+                                 "description":  "Traditional Indonesian wax-resist dyed cloth inscribed on UNESCO\u0027s Intangible Cultural Heritage list in 2009. Patterns like Parang Rusak and Kawung convey royal wisdom.",
+                                 "province_ids":  [
+                                                      "diy",
+                                                      "jateng",
+                                                      "jabar"
+                                                  ],
+                                 "image_url":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyQQ3FD7MqPtWkW0eLaZumQqn8q50cza-smFVTQq6dI9t2e8hjR3aqOw8\u0026s=10",
+                                 "is_unesco_recognized":  true
+                             },
+                             {
+                                 "id":  "baksomalang",
+                                 "category_id":  "food",
+                                 "title":  "Bakso Malang",
+                                 "local_name":  "Bakso Malang",
+                                 "summary":  "A Must Try Food While Visiting Malang",
+                                 "description":  "Bakso Malang is a variation of the famous Bakso or Indonesian Meatball. But unlike normal Bakso, Bakso Malang usually consisted of a more varies topping like Bakso Goreng (Fried Meatball), Pangsit, Usus Goreng ( Fried Chicken Intestines) and much more depending where you buy it.",
+                                 "province_ids":  [
+                                                      "jatim"
+                                                  ],
+                                 "image_url":  "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b6/Baso_Malang_Karapitan.JPG/500px-Baso_Malang_Karapitan.JPG?utm_source=id.wikipedia.org\u0026utm_campaign=parser\u0026utm_content=thumbnail",
+                                 "is_unesco_recognized":  false
+                             }
+                         ]
+}

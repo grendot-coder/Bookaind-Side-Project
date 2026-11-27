@@ -361,11 +361,14 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
 
-            // 5. Interactive Teasers (Map & AI Guide)
+            // 5. Interactive Teasers (Map, AI Guide & Itinerary Planner)
             SliverToBoxAdapter(
               child: Column(
                 children: [
                   const SizedBox(height: 8),
+                  ItineraryTeaserCard(
+                    onTap: () => context.push('/itinerary-planner'),
+                  ),
                   MapTeaserCard(onTap: () => context.push('/map')),
                   AiAssistantTeaserCard(
                     onTap: () => context.push('/ai-assistant'),

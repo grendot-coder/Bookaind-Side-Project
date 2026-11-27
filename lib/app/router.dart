@@ -14,6 +14,8 @@ import '../features/discovery/presentation/interactive_map_screen.dart';
 import '../features/discovery/presentation/ai_assistant_screen.dart';
 import '../features/discovery/presentation/province_detail_screen.dart';
 import '../features/discovery/presentation/search_screen.dart';
+import '../features/discovery/models/itinerary_model.dart';
+import '../features/discovery/presentation/itinerary_planner_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -116,6 +118,15 @@ final appRouter = GoRouter(
       builder: (context, state) {
         final query = state.uri.queryParameters['q'];
         return SearchScreen(initialQuery: query);
+      },
+    ),
+
+    GoRoute(
+      path: '/itinerary-planner',
+      builder: (context, state) {
+        final region = state.uri.queryParameters['region'];
+        final plan = state.extra is ItineraryPlan ? state.extra as ItineraryPlan : null;
+        return ItineraryPlannerScreen(initialRegion: region, initialPlan: plan);
       },
     ),
   ],

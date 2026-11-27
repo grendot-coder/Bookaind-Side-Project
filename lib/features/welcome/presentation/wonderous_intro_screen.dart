@@ -30,7 +30,7 @@ class _WonderousIntroScreenState extends State<WonderousIntroScreen>
   late final PageController _pageController;
   int _currentPage = 0;
 
-  // The collection of Wonderous artworks
+  // The collection of Wonderous artworks celebrating Nusantara's heritage
   final List<IntroWonder> _wonders = const [
     IntroWonder(
       imagePath: 'assets/images/branding/istiqlal_hero.jpg',
@@ -43,6 +43,30 @@ class _WonderousIntroScreenState extends State<WonderousIntroScreen>
       title: 'BUKIT SIBEA-BEA',
       location: 'SAMOSIR • LAKE TOBA PANORAMA',
       skyColor: Color(0xFFF0655D), // Coral red sky
+    ),
+    IntroWonder(
+      imagePath: 'assets/images/branding/sleeping_buddha_hero.jpg',
+      title: 'PATUNG BUDDHA TIDUR',
+      location: 'BINTAN • VIHARA DHARMA SHANTI',
+      skyColor: Color(0xFF9E2325), // Deep maroon sky
+    ),
+    IntroWonder(
+      imagePath: 'assets/images/branding/katedral_jakarta_hero.jpg',
+      title: 'GEREJA KATEDRAL',
+      location: 'JAKARTA • SANTA PERAWAN MARIA',
+      skyColor: Color(0xFFA12729), // Crimson red sky
+    ),
+    IntroWonder(
+      imagePath: 'assets/images/branding/sam_poo_kong_hero.jpg',
+      title: 'KLENTENG SAM POO KONG',
+      location: 'SEMARANG • JEJAK LAKSAMANA CHENG HO',
+      skyColor: Color(0xFF274466), // Night indigo sky
+    ),
+    IntroWonder(
+      imagePath: 'assets/images/branding/ulun_danu_hero.jpg',
+      title: 'PURA ULUN DANU BERATAN',
+      location: 'BEDUGUL • DANAU SUCI BALI',
+      skyColor: Color(0xFF3EA394), // Lake turquoise sky
     ),
   ];
 
@@ -98,7 +122,6 @@ class _WonderousIntroScreenState extends State<WonderousIntroScreen>
               },
             ),
 
-            // 2. MULTI-STOP VIGNETTES (For top and bottom typographic contrast)
             Positioned(
               top: 0,
               left: 0,

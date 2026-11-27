@@ -1,0 +1,5 @@
+# Copy this file to android/key.properties (already gitignored) and fill in your keystore details.
+storePassword=your-store-password
+keyPassword=your-key-password
+keyAlias=bookaind
+storeFile=C:/Users/YourUser/bookaind-release.jks

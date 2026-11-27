@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../app/theme/app_colors.dart';
+import '../../../core/services/ai_gateway_service.dart';
+import '../../../core/services/local_settings_service.dart';
 import '../../../shared/data/mock_cultural_data.dart';
 import '../../../shared/models/cultural_model.dart';
-import '../../../core/services/groq_cultural_service.dart';
+import '../../profile/presentation/widgets/profile_settings_sheet.dart';
 
 /// Data class representing a message in the cultural conversation
 class ChatMessage {
@@ -22,14 +25,14 @@ class ChatMessage {
   });
 }
 
-class AiAssistantScreen extends StatefulWidget {
+class AiAssistantScreen extends ConsumerStatefulWidget {
   const AiAssistantScreen({super.key});
 
   @override
-  State<AiAssistantScreen> createState() => _AiAssistantScreenState();
+  ConsumerState<AiAssistantScreen> createState() => _AiAssistantScreenState();
 }
 
-class _AiAssistantScreenState extends State<AiAssistantScreen> {
+class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
   final TextEditingController _textController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
   bool _isTyping = false;
@@ -96,10 +99,28 @@ class _AiAssistantScreenState extends State<AiAssistantScreen> {
         )
         .toList();
 
-    final aiAnswer = await GroqCulturalService.generateCulturalAnswer(
-      userPrompt: userText,
-      conversationHistory: history,
-    );
+    String aiAnswer;
+    try {
+      final raw = await AiGatewayService.generateText(
+        userPrompt: userText,
+        conversationHistory: history,
+        systemPrompt:
+            'You are the Nusantara Cultural Guide for Bookaind. Answer questions about Indonesian heritage, '
+            'ancient temples, royal palaces, traditional culinary dishes, textiles, and cultural etiquette '
+            'concisely and respectfully in plain prose (no markdown asterisks).',
+      );
+      aiAnswer = raw.replaceAll('*', '').trim();
+    } on AiGatewayException catch (e) {
+      if (e.isMissingKey) {
+        aiAnswer =
+            'Bookaind is currently in Offline Mode with no AI API key configured.\n\n'
+            'Tap "Add AI Key" at the top of this screen to paste a free Groq or Gemini API key and unlock live cultural answers.';
+      } else {
+        aiAnswer = e.message;
+      }
+    } catch (e) {
+      aiAnswer = 'Unable to connect to AI provider: $e';
+    }
 
     if (!mounted) return;
 
@@ -154,11 +175,21 @@ class _AiAssistantScreenState extends State<AiAssistantScreen> {
     _scrollToBottom();
   }
 
-  // 👉 Right after the closing brace of _sendMessage, it goes straight to build:
+  void _openByokSheet() {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => const ProfileSettingsSheet(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final colors = context.appColors;
     final theme = Theme.of(context);
+    final aiSettings = ref.watch(aiSettingsProvider);
+    final hasKey = aiSettings.hasApiKey;
 
     return Scaffold(
       backgroundColor: colors.cream,
@@ -177,23 +208,142 @@ class _AiAssistantScreenState extends State<AiAssistantScreen> {
                 Container(
                   width: 7,
                   height: 7,
-                  decoration: const BoxDecoration(
-                    color: Colors.green,
+                  decoration: BoxDecoration(
+                    color: hasKey ? Colors.green : colors.saffron,
                     shape: BoxShape.circle,
                   ),
                 ),
                 const SizedBox(width: 5),
                 Text(
-                  'Online • Nusantara Guide',
+                  hasKey
+                      ? 'BYOK Active • ${aiSettings.provider.shortLabel}'
+                      : 'Offline Guide • Tap Add AI Key',
                   style: theme.textTheme.bodySmall?.copyWith(fontSize: 11),
                 ),
               ],
             ),
           ],
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: TextButton.icon(
+              onPressed: _openByokSheet,
+              icon: Icon(Icons.key_rounded, size: 17, color: colors.coral),
+              label: Text(
+                hasKey ? 'AI Key' : 'Add AI Key',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: colors.coral,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
+          if (!hasKey)
+            InkWell(
+              onTap: _openByokSheet,
+              child: Container(
+                margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                decoration: BoxDecoration(
+                  color: colors.saffronSubtle,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: colors.saffron.withValues(alpha: 0.6),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.key_rounded, size: 18, color: colors.charcoal),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        'Bring Your Own Key: Add a free Groq or Gemini key to enable live AI chat.',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: colors.charcoal,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Setup',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: colors.coral,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          // Top Shortcut Banner to Smart Itinerary Planner
+          GestureDetector(
+            onTap: () => context.push('/itinerary-planner'),
+            child: Container(
+              margin: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              decoration: BoxDecoration(
+                color: colors.warmWhite,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: colors.coral.withValues(alpha: 0.3),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.03),
+                    blurRadius: 6,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: colors.coral.withValues(alpha: 0.12),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.route_rounded, size: 16, color: colors.coral),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Need a multi-day trip route?',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: colors.charcoal,
+                          ),
+                        ),
+                        Text(
+                          'Open the Smart Cultural Itinerary Planner →',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: colors.coral,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
           // 1. MESSAGES LIST
           Expanded(
             child: ListView.builder(
